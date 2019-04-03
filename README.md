@@ -5,4 +5,5 @@
 * Update ```src/server/config.js``` if required
 * ```npm i```
 * Ensure MondoDB is running (mongod)
-* ```npm start```
+* Run server - ```npm run server```
+* Run client - ```npm run client```
