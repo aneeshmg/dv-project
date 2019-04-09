@@ -1,7 +1,7 @@
 const db = require('./db')
 
 const index = (req, res) => {
-    res.send("it works")
+    res.sendFile(C:\Users\onlyj\Desktop\Git\dv-project\src\client\index.html)
 }
 
 module.exports = {
