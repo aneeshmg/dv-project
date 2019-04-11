@@ -1,7 +1,7 @@
 const db = require('./db')
 
 const index = (req, res) => {
-    res.sendFile(__dir_name+"/public/index.html")
+    res.sendFile("it works")
 }
 
 module.exports = {
