@@ -1,5 +1,0 @@
-body{background-color: black;}
-		#top_bar {overflow: hidden;height: 60px;}
-		#map{height:400px;width: 100%}
-		p{fill: white;color: white;}
-		input[type=text]{font-family:Helvetica, Arial, sans-serif;font-size:15pt;line-height:1.8em;height:1.5em;margin:0;padding:0;}
