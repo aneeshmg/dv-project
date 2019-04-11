@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "server": "nodemon app.js",
-    "client": "lite-server --baseDir='src/client'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client-l": "lite-server --baseDir='src/client'",
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"client-w": "cd src\\client && lite-server"
   },
   "author": "",
   "license": "ISC",

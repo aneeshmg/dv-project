@@ -6,4 +6,5 @@
 * ```npm i```
 * Ensure MondoDB is running (mongod)
 * Run server - ```npm run server```
-* Run client - ```npm run client```
+* Run client (On Linux) - ```npm run client-l```
+* Run client (On Windows) - ```npm run client-w```
