@@ -7,7 +7,7 @@
     "server": "nodemon app.js",
     "client-l": "lite-server --baseDir='src/client'",
     "test": "echo \"Error: no test specified\" && exit 1",
-	"client-w": "cd src\\client && lite-server"
+    "client-w": "cd src\\client && lite-server"
   },
   "author": "",
   "license": "ISC",
@@ -16,7 +16,7 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "lite-server": "^2.4.0",
-    "mongodb": "^3.2.2",
+    "mongodb": "^3.2.3",
     "natural": "^0.6.3",
     "nodemon": "^1.18.10",
     "path": "^0.12.7"

@@ -1,4 +1,5 @@
 const db = require('./db')
+const Business = require('./models/Business.js');
 
 const index = (req, res) => {
     res.send("it works")
@@ -62,8 +63,25 @@ const getBusinessesInArea = (req, res) => {
     res.json(data)
 }
 
+
+const getBusinessInfo = (req, res) => {
+    console.log('HERE REACHED');
+    const bussid = req.params.BussID;
+    console.log(bussid);
+    Business.findById(bussid)
+    // Product.findById(prodId)
+    .then(busobj => {
+      if (!busobj) {
+        return res.redirect('/');
+      }
+      res.json(busobj);
+    })
+    .catch(err => console.log(err));
+}
+
 module.exports = {
     index,
     getBusinessNames,
-    getBusinessesInArea
+    getBusinessesInArea,
+    getBusinessInfo
 }
