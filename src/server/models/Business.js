@@ -58,7 +58,7 @@ class Business {
   }
 
   static findById(BussID) {
-      console.log("Inside the func");
+      //console.log("Inside the func");
     const db = getDb();
     return db
       .collection('businesses')

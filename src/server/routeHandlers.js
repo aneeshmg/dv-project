@@ -65,7 +65,7 @@ const getBusinessesInArea = (req, res) => {
 
 
 const getBusinessInfo = (req, res) => {
-    console.log('HERE REACHED');
+    //console.log('HERE REACHED');
     const bussid = req.params.BussID;
     console.log(bussid);
     Business.findById(bussid)
