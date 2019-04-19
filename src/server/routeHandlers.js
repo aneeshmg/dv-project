@@ -67,7 +67,7 @@ const getBusinessesInArea = (req, res) => {
 const getBusinessInfo = (req, res) => {
     //console.log('HERE REACHED');
     const bussid = req.params.BussID;
-    console.log(bussid);
+    //console.log(bussid);
     Business.findById(bussid)
     // Product.findById(prodId)
     .then(busobj => {
@@ -79,9 +79,42 @@ const getBusinessInfo = (req, res) => {
     .catch(err => console.log(err));
 }
 
+const getBusinessesbycoord = (req, res) => {
+    //console.log('LOCA CHECK REACHED');
+    const lat1 = req.params.lat1;
+    const long1 = req.params.long1;
+    const lat2 = req.params.lat2;
+    const long2 = req.params.long2;
+    console.log(lat2);
+    Business.findWithinLoc(lat1,long1,lat2,long2)
+    // Product.findById(prodId)
+    .then(busobj => {
+      if (!busobj) {
+        return res.redirect('/');
+      }
+      res.json(busobj);
+    })
+    .catch(err => console.log(err));
+}
+
+const getBusinessesbyName = (req, res) => {
+    console.log('LOCA CHECK REACHED');
+    const Bizname = req.params.Bizname;
+    Business.findByBuzName(Bizname)
+    // Product.findById(prodId)
+    .then(busobj => {
+      if (!busobj) {
+        return res.redirect('/');
+      }
+      res.json(busobj);
+    })
+    .catch(err => console.log(err));
+}
 module.exports = {
     index,
     getBusinessNames,
     getBusinessesInArea,
-    getBusinessInfo
+    getBusinessInfo,
+    getBusinessesbycoord,
+    getBusinessesbyName
 }
