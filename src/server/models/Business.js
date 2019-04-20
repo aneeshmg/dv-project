@@ -92,8 +92,8 @@ class Business {
     //console.log("Inside the func");
   const db = getDb();
   return db
-    .collection('businesses').find({longitude: { $lt: -70 }})
-    //.find({$and:[{latitude : {$lte :parseFloat(lat2), $gte : parseFloat(lat1)}}, {longitude : {$lte :parseFloat(long2), $gte : parseFloat(long1)}}]})
+    .collection('businesses')//.find({longitude: { $lt: -70 }})
+    .find({$and:[{latitude : {$lte :parseFloat(lat2), $gte : parseFloat(lat1)}}, {longitude : {$lte :parseFloat(long2), $gte : parseFloat(long1)}}]})
     .toArray()
     .then(restaurants => {
       console.log(restaurants);

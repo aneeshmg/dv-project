@@ -98,7 +98,7 @@ const getBusinessesbycoord = (req, res) => {
 }
 
 const getBusinessesbyName = (req, res) => {
-    console.log('LOCA CHECK REACHED');
+    //console.log('LOCA CHECK REACHED');
     const Bizname = req.params.Bizname;
     Business.findByBuzName(Bizname)
     // Product.findById(prodId)
