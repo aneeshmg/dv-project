@@ -79,6 +79,21 @@ const getBusinessInfo = (req, res) => {
     .catch(err => console.log(err));
 }
 
+const getAllBusinesses = (req, res) => {
+    //console.log('HERE REACHED');
+    //const bussid = req.params.BussID;
+    //console.log(bussid);
+    Business.fetchAll()
+    // Product.findById(prodId)
+    .then(busobj => {
+      if (!busobj) {
+        return res.redirect('/');
+      }
+      res.json(busobj);
+    })
+    .catch(err => console.log(err));
+}
+
 const getBusinessesbycoord = (req, res) => {
     //console.log('LOCA CHECK REACHED');
     const lat1 = req.params.lat1;
@@ -116,5 +131,6 @@ module.exports = {
     getBusinessesInArea,
     getBusinessInfo,
     getBusinessesbycoord,
-    getBusinessesbyName
+    getBusinessesbyName,
+    getAllBusinesses
 }
