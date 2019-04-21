@@ -12,7 +12,7 @@ module.exports = {
                 logger.info('Connected to db.')
                 _db = db
                 res();
-            }).catch(err =>{
+            }).catch(err => {
                 logger.error('Failed to connect to database: ', err)
             })
         })
