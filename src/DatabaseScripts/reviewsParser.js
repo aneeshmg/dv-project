@@ -33,7 +33,8 @@ const csvWriter = createCsvWriter({
         {id: 'review_id', title: 'review_id'},
         {id: 'review_text', title: 'review_text'},
         {id: 'topic', title: 'topic'},
-        {id: 'score', title: 'score'}
+        {id: 'score', title: 'score'},
+        {id: 'date', title: 'date'}
     ]
   })
 
@@ -42,31 +43,36 @@ let csvStream = fastCsv().on('data', data => {
     let user_id = data[3]
     let business_id = data[4]
     let review_id = data[2]
+    let date = data[10]
 
-    let docs = review_text.match(/[^\.!\?]+[\.!\?]+/g)
+    if (review_text.length > 100 && business_id != undefined && date != undefined) {
+        let docs = review_text.match(/[^\.!\?]+[\.!\?]+/g)
 
-    let t = lda(docs, NUM_TOPICS, TERMS_PER_TOPIC)[0]
-    if (t) {
-        if (t[0]) {
-            let topic = t[0].term
-
-            // console.log(++i, ' topic', topic)
-            if(++i % 100 == 0) console.log(i, 'record created')
-
-            let result = sentiment.getSentiment(review_text)
-            // console.log('score: ', result.score, ' comparative: ', result.comparative)
-            // console.log('---')
-            let record = {
-                user_id: user_id,
-                business_id: business_id,
-                review_id: review_id,
-                review_text: review_text,
-                topic: topic,
-                score: result.score
+        let t = lda(docs, NUM_TOPICS, TERMS_PER_TOPIC)[0]
+        if (t) {
+            if (t[0]) {
+                let topic = t[0].term
+    
+                // console.log(++i, ' topic', topic)
+                if(++i % 100 == 0) console.log(i, 'record created')
+    
+                let result = sentiment.getSentiment(review_text)
+                // console.log('score: ', result.score, ' comparative: ', result.comparative)
+                // console.log('---')
+                let record = {
+                    user_id: user_id,
+                    business_id: business_id,
+                    review_id: review_id,
+                    review_text: review_text,
+                    topic: topic,
+                    score: result.score,
+                    date : date
+                }
+                records.push(record)
             }
-            records.push(record)
         }
     }
+
 
 
 
