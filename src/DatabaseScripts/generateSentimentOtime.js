@@ -22,8 +22,24 @@ let csvStream = fastCsv().on('data', data => {
 
 }).on('end', () => {
     business_ids = getRandomSubarray([...business_ids], 100)
+    years = [...years]
     console.log(business_ids.length)
-    console.log([...years])
+    console.log(years)
+
+    let numberOfBusinesses = business_ids.length
+    let numberOfYears = years.length
+
+    for (let i = 0; i < numberOfBusinesses; i++) {
+
+        for (let j = 0; j < numberOfYears; j++) {
+
+            let sentimentScore = 0
+            let review = getFromDb()
+        }
+
+    }
+
+
     console.log('END')
 })
 
