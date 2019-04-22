@@ -25,18 +25,38 @@ let records = []
 
 const istream = fs.createReadStream(fullFile)
 
-const csvWriter = createCsvWriter({  
+const csvWriter = createCsvWriter({
     path: fullFileOut,
-    header: [
-        {id: 'user_id', title: 'user_id'},
-        {id: 'business_id', title: 'business_id'},
-        {id: 'review_id', title: 'review_id'},
-        {id: 'review_text', title: 'review_text'},
-        {id: 'topic', title: 'topic'},
-        {id: 'score', title: 'score'},
-        {id: 'date', title: 'date'}
+    header: [{
+            id: 'user_id',
+            title: 'user_id'
+        },
+        {
+            id: 'business_id',
+            title: 'business_id'
+        },
+        {
+            id: 'review_id',
+            title: 'review_id'
+        },
+        {
+            id: 'review_text',
+            title: 'review_text'
+        },
+        {
+            id: 'topic',
+            title: 'topic'
+        },
+        {
+            id: 'score',
+            title: 'score'
+        },
+        {
+            id: 'date',
+            title: 'date'
+        }
     ]
-  })
+})
 
 let csvStream = fastCsv().on('data', data => {
     let review_text = data[9]
@@ -52,10 +72,10 @@ let csvStream = fastCsv().on('data', data => {
         if (t) {
             if (t[0]) {
                 let topic = t[0].term
-    
+
                 // console.log(++i, ' topic', topic)
-                if(++i % 100 == 0) console.log(i, 'record created')
-    
+                if (++i % 1000 == 0) console.log(i, 'record created')
+
                 let result = sentiment.getSentiment(review_text)
                 // console.log('score: ', result.score, ' comparative: ', result.comparative)
                 // console.log('---')
@@ -66,9 +86,13 @@ let csvStream = fastCsv().on('data', data => {
                     review_text: review_text,
                     topic: topic,
                     score: result.score,
-                    date : date
+                    date: date
                 }
                 records.push(record)
+
+                if (i % 1000 == 0) {
+                    csvStream.pause()
+                }
             }
         }
     }
@@ -77,9 +101,14 @@ let csvStream = fastCsv().on('data', data => {
 
 
 }).on('end', () => {
-    console.log('All the data in the file has been read')
-    // console.log(records)
-    csvWriter.writeRecords(records).then(()=> console.log('The CSV file was written successfully'))
+    console.log('All the data in the file has been processed')
+}).on('pause', () => {
+    console.log(`paused to write ${i} record to file`)
+    csvWriter.writeRecords(records).then(() => {
+            console.log('The CSV file was written successfully')
+            records = []
+            csvStream.resume()
+    })
 })
 
 istream.pipe(csvStream)
