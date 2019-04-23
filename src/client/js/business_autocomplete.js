@@ -76,7 +76,5 @@ var myVariable;
 var business_names = []
 $.ajax({'async': false,'type': "GET",'global': false,'url': "http://localhost:4000/getbusinesses",'success': function (data) {myVariable = data;}});
 
-for(row in myVariable){
-  business_names.push(myVariable[row].name+", "+myVariable[row].city+", "+myVariable[row].state)
-}
+for(row in myVariable){business_names.push(myVariable[row].name+", "+myVariable[row].city+", "+myVariable[row].state+", Business ID: "+myVariable[row].business_id)}
 autocomplete(document.getElementById("business_autocomplete"),business_names);
