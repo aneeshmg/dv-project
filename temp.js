@@ -18,11 +18,20 @@ MongoClient.connect('mongodb://localhost:27017', (err, _db) => {
 
     // Requires official MongoShell 3.6+
 
+    // db.collection('reviews_to_db').find({ 
+    //     business_id: "zvO-PJCpNk4fgAVUnExYAA", 
+    //     "$expr": { "$eq": [{ "$year": "$date" }, 2010] } 
+    // }).toArray((err, data) => {
+    //     // console.log(data.reduce((ac, cu) => ac += parseFloat(cu.score), 0))
+    //     console.log(data)
+    // })
+
     db.collection('reviews_to_db').find({ 
-        business_id: "zvO-PJCpNk4fgAVUnExYAA", 
-        "$expr": { "$eq": [{ "$year": "$date" }, 2010] } 
+        business_id: "zvO-PJCpNk4fgAVUnExYAA",
+        date: 2010
     }).toArray((err, data) => {
         console.log(data.reduce((ac, cu) => ac += parseFloat(cu.score), 0))
+        // console.log(data)
     })
 
     _db.close()

@@ -1,4 +1,4 @@
-const db = require('./db')
+const MongoClient = require('mongodb').MongoClient
 
 const index = (req, res) => {
     res.send("it works")
@@ -62,8 +62,32 @@ const getBusinessesInArea = (req, res) => {
     res.json(data)
 }
 
+const getSentiments = (req, res) => {
+    MongoClient.connect('mongodb://localhost:27017', (err, _db) => {
+        if (err) throw err
+        db = _db.db('dv')
+
+        db.collection('reviews_to_db').find({ 
+            business_id: req.params.business_id, 
+            date: parseInt(req.params.year) 
+        }).toArray((err, data) => {
+            if (data == null) res.json({})
+            else {
+                let score = data.reduce((ac, cu) => ac += parseFloat(cu.score), 0)
+                res.json({
+                    business_id : req.params.business_id,
+                    year: req.params.year,
+                    sentiment_score: score
+                })
+            }
+        })
+        _db.close()
+    })
+}
+
 module.exports = {
     index,
     getBusinessNames,
-    getBusinessesInArea
+    getBusinessesInArea,
+    getSentiments
 }
