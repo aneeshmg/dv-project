@@ -58,22 +58,28 @@ const getBusinessesbyName = (req, res) => {
 }
 
 const getSentiments = (req, res) => {
+    log.info(req.params)
     const db = dbPool.getDb()
 
-    db.collection('reviews_to_db').find({
+    db.collection('main').find({
         business_id: req.params.business_id,
-        date: parseInt(req.params.year)
+        date: req.params.year
+    }, {
+        business_name : 1,
+        sentiment_score: 1
     }).toArray((err, data) => {
+        log.info(data[0])
         if (err) {
             log.error(err)
             throw err
         }
-        if (data == null) res.json({})
+        if (data == null || data.length == 0) res.json({})
         else {
-            let score = data.reduce((ac, cu) => ac += parseFloat(cu.score), 0)
+            let score = data.reduce((ac, cu) => ac += parseFloat(cu.sentiment_score), 0)
             res.json({
                 business_id: req.params.business_id,
                 year: req.params.year,
+                business_name: data[0].business_name,
                 sentiment_score: score
             })
         }
