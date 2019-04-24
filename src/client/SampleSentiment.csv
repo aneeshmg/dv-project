@@ -1,0 +1,59 @@
+businessID,year,score,businessName
+123a,2010,-0.75,BizA
+123a,2010,0.5,BizA
+123a,2010,0.25,BizA
+123a,2010,0.33,BizA
+123a,2011,-0.87,BizA
+123a,2011,-0.12,BizA
+123a,2011,-0.13,BizA
+123a,2011,0.1,BizA
+123a,2012,0,BizA
+123a,2012,0.66,BizA
+123a,2012,0.9,BizA
+124a,2010,0.44,Texas BBQ
+124a,2010,0.24,Texas BBQ
+124a,2010,0.33,Texas BBQ
+124a,2010,0.25,Texas BBQ
+124a,2011,0.11,Texas BBQ
+124a,2011,0.66,Texas BBQ
+124a,2011,0.77,Texas BBQ
+124a,2011,0.56,Texas BBQ
+124a,2012,-1,Texas BBQ
+124a,2012,-0.92,Texas BBQ
+124a,2012,0.1,Texas BBQ
+124c,2010,0.33,McDonald’s
+124c,2010,-0.25,McDonald’s
+124c,2010,-0.22,McDonald’s
+124c,2010,0.1,McDonald’s
+124c,2011,-1,McDonald’s
+124c,2011,-0.87,McDonald’s
+124c,2011,-0.36,McDonald’s
+124c,2011,-0.1,McDonald’s
+124c,2012,-0.05,McDonald’s
+124c,2012,0.16,McDonald’s
+124c,2012,0.11,McDonald’s
+123a,2013,0.5,BizA
+123a,2013,0.6,BizA
+123a,2013,0.03,BizA
+124a,2013,0,BizA
+124a,2013,0.05,BizA
+124a,2013,-0.1,BizA
+124a,2013,-0.3,BizA
+124c,2013,1,BizA
+124c,2013,0.98,BizA
+123a,2014,0.06,BizA
+123a,2014,-0.02,BizA
+123a,2014,-0.3,BizA
+123a,2014,-0.1,BizA
+123a,2014,0.6,BizA
+124a,2014,-0.3,McDonald’s
+124a,2014,1,McDonald’s
+124a,2014,1,McDonald’s
+124a,2014,1,McDonald’s
+124a,2014,0.8,McDonald’s
+124a,2014,0.7,McDonald’s
+124c,2014,0.41,Texas BBQ
+124c,2014,0.34,Texas BBQ
+124c,2014,0.55,Texas BBQ
+124c,2014,0.66,Texas BBQ
+124c,2014,-0.32,Texas BBQ
