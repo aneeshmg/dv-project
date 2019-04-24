@@ -11,4 +11,6 @@ router.get('/sentiment/:business_id/:year', handlers.getSentiments)
 
 router.get('/positivesNegatives/:business_id', handlers.getKeyTerms)
 
+router.get('/ratings/:business_id/:year', handlers.getRatings)
+
 module.exports = router

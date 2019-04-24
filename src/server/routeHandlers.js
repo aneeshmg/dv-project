@@ -58,7 +58,6 @@ const getBusinessesbyName = (req, res) => {
 }
 
 const getSentiments = (req, res) => {
-    log.info(req.params)
     const db = dbPool.getDb()
 
     db.collection('main').find({
@@ -114,6 +113,36 @@ const getKeyTerms = (req, res) => {
 
 }
 
+const getRatings = (req, res) => {
+    const db = dbPool.getDb()
+
+    // TODO: fix rating once db is ready
+    db.collection('main').find({
+        business_id: req.params.business_id,
+        date: req.params.year
+    }).toArray((err, data) => {
+        if (err) {
+            log.error(err)
+            throw err
+        }
+        if (data == null || data.length == 0) res.json({})
+        else {
+            let o = data.map(e => {
+                return {
+                    business_id : req.params.business_id,
+                    reviewer_id : e.user_id,
+                    business_name : e.business_name,
+                    impact_score : e.impact_score,
+                    year: e.date,
+                    rating: Math.floor(Math.random() * 5) + 1 
+                }
+            })
+            console.log(o)
+            res.send(o)
+        }
+    })
+}
+
 
 module.exports = {
     index,
@@ -122,5 +151,6 @@ module.exports = {
     getBusinessesbyName,
     getAllBusinesses,
     getSentiments,
-    getKeyTerms
+    getKeyTerms,
+    getRatings
 }
