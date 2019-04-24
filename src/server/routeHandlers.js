@@ -68,7 +68,6 @@ const getSentiments = (req, res) => {
         business_name : 1,
         sentiment_score: 1
     }).toArray((err, data) => {
-        log.info(data[0])
         if (err) {
             log.error(err)
             throw err
@@ -89,6 +88,29 @@ const getSentiments = (req, res) => {
 const getKeyTerms = (req, res) => {
     const db = dbPool.getDb()
 
+    db.collection('business_with_positives').find({
+        business_id : req.params.business_id
+    }, {
+        positives : 1,
+        name : 1,
+        negatives : 1
+    }).toArray((err, data) => {
+        if (err) {
+            log.error(err)
+            throw err
+        }
+        if (data == null || data.length == 0) res.json({})
+        else {
+            let positives = data[0].positives.split(' ')
+            let negatives = data[0].negatives.split(' ')
+            res.json({
+                business_id : req.params.business_id,
+                business_name : data[0].name,
+                positives : positives,
+                negatives : negatives
+            })
+        }
+    })
 
 }
 
@@ -99,5 +121,6 @@ module.exports = {
     getBusinessesbycoord,
     getBusinessesbyName,
     getAllBusinesses,
-    getSentiments
+    getSentiments,
+    getKeyTerms
 }
