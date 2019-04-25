@@ -95,7 +95,7 @@ static findByBiznamecitystate(Bizname,Bizcity,Bizstate) {
 const db = getDb();
 return db
   .collection('businesses')
-  .find({ name: Bizname, city : Bizcity,  state: Bizstate })
+  .find({ name: Bizname, city : Bizcity,  state: Bizstate }, { projection: { _id: 0, business_id : 1 } })
   .toArray()
   .then(business => {
     console.log(business);
