@@ -88,6 +88,24 @@ class Business {
       console.log(err);
     });
 }
+
+
+static findByBiznamecitystate(Bizname,Bizcity,Bizstate) {
+  //console.log("Inside the func");
+const db = getDb();
+return db
+  .collection('businesses')
+  .find({ name: Bizname, city : Bizcity,  state: Bizstate })
+  .toArray()
+  .then(business => {
+    console.log(business);
+    return business;
+  })
+  .catch(err => {
+    console.log(err);
+  });
+}
+
   static findWithinLoc(lat1,long1,lat2,long2) {
     //console.log("Inside the func");
   const db = getDb();
