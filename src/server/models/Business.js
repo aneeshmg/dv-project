@@ -49,7 +49,7 @@ class Business {
       .find()
       .toArray()
       .then(businesses => {
-        console.log(businesses);
+        //console.log(businesses);
         return businesses;
       })
       .catch(err => {
@@ -65,7 +65,7 @@ class Business {
       .find({ business_id: BussID })
       .next()
       .then(business => {
-        console.log(business);
+        //console.log(business);
         return business;
       })
       .catch(err => {
@@ -81,7 +81,7 @@ class Business {
     .find({ name: Buzname })
     .toArray()
     .then(business => {
-      console.log(business);
+      //console.log(business);
       return business;
     })
     .catch(err => {
@@ -98,7 +98,7 @@ return db
   .find({ name: Bizname, city : Bizcity,  state: Bizstate }, { projection: { _id: 0, business_id : 1 } })
   .toArray()
   .then(business => {
-    console.log(business);
+    //console.log(business);
     return business;
   })
   .catch(err => {
@@ -114,7 +114,7 @@ return db
     .find({$and:[{latitude : {$lte :parseFloat(lat2), $gte : parseFloat(lat1)}}, {longitude : {$lte :parseFloat(long2), $gte : parseFloat(long1)}}]})
     .toArray()
     .then(restaurants => {
-      console.log(restaurants);
+      //console.log(restaurants);
       return restaurants;
     })
     .catch(err => {
