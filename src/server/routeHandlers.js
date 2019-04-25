@@ -58,7 +58,6 @@ const getBusinessesbyName = (req, res) => {
 }
 
 const getSentiments = (req, res) => {
-    log.info(req.params)
     const db = dbPool.getDb()
 
     db.collection('main').find({
@@ -68,7 +67,6 @@ const getSentiments = (req, res) => {
         business_name : 1,
         sentiment_score: 1
     }).toArray((err, data) => {
-        log.info(data[0])
         if (err) {
             log.error(err)
             throw err
@@ -89,7 +87,60 @@ const getSentiments = (req, res) => {
 const getKeyTerms = (req, res) => {
     const db = dbPool.getDb()
 
+    db.collection('business_with_positives').find({
+        business_id : req.params.business_id
+    }, {
+        positives : 1,
+        name : 1,
+        negatives : 1
+    }).toArray((err, data) => {
+        if (err) {
+            log.error(err)
+            throw err
+        }
+        if (data == null || data.length == 0) res.json({})
+        else {
+            let positives = data[0].positives.split(' ')
+            let negatives = data[0].negatives.split(' ')
+            res.json({
+                business_id : req.params.business_id,
+                business_name : data[0].name,
+                positives : positives,
+                negatives : negatives
+            })
+        }
+    })
 
+}
+
+const getRatings = (req, res) => {
+    const db = dbPool.getDb()
+
+    // TODO: fix rating once db is ready
+    db.collection('main').find({
+        business_id: req.params.business_id,
+        date: req.params.year
+    }).toArray((err, data) => {
+        if (err) {
+            log.error(err)
+            throw err
+        }
+        if (data == null || data.length == 0) res.json({})
+        else {
+            let o = data.map(e => {
+                return {
+                    business_id : req.params.business_id,
+                    reviewer_id : e.user_id,
+                    business_name : e.business_name,
+                    impact_score : e.impact_score,
+                    year: e.date,
+                    rating: Math.floor(Math.random() * 5) + 1 
+                }
+            })
+            console.log(o)
+            res.send(o)
+        }
+    })
 }
 
 
@@ -99,5 +150,7 @@ module.exports = {
     getBusinessesbycoord,
     getBusinessesbyName,
     getAllBusinesses,
-    getSentiments
+    getSentiments,
+    getKeyTerms,
+    getRatings
 }
