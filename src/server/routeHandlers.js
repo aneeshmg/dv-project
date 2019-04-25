@@ -157,6 +157,54 @@ const getRatings = (req, res) => {
     })
 }
 
+const getGoodTopics = (req, res) => {
+    const db = dbPool.getDb()
+
+    db.collection('main').find({
+        business_id: req.params.business_id,
+        date: req.params.year
+    }).toArray((err, data) => {
+        if (err) {
+            log.error(err)
+            throw err
+        }
+        if (data == null || data.length == 0) res.json({})
+        else {
+            let goodTopics = data.filter(e => parseFloat(e.sentiment_score) > 0).map(e => {
+                return {
+                    name : e.topic,
+                    weight : e.impact_score
+                }
+            })
+            res.json(goodTopics)
+        }
+    })
+}
+
+const getBadTopics = (req, res) => {
+    const db = dbPool.getDb()
+
+    db.collection('main').find({
+        business_id: req.params.business_id,
+        date: req.params.year
+    }).toArray((err, data) => {
+        if (err) {
+            log.error(err)
+            throw err
+        }
+        if (data == null || data.length == 0) res.json({})
+        else {
+            let badTopics = data.filter(e => parseFloat(e.sentiment_score) < 0).map(e => {
+                return {
+                    name : e.topic,
+                    weight : Math.ceil(e.impact_score)
+                }
+            })
+            res.json(badTopics)
+        }
+    })
+}
+
 
 module.exports = {
     index,
@@ -167,5 +215,7 @@ module.exports = {
     getAllBusinesses,
     getSentiments,
     getKeyTerms,
-    getRatings
+    getRatings,
+    getGoodTopics,
+    getBadTopics
 }

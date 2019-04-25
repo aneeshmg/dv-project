@@ -14,4 +14,7 @@ router.get('/positivesNegatives/:business_id', handlers.getKeyTerms)
 
 router.get('/ratings/:business_id/:year', handlers.getRatings)
 
+router.get('/topics/good/:business_id/:year', handlers.getGoodTopics)
+router.get('/topics/bad/:business_id/:year', handlers.getBadTopics)
+
 module.exports = router
