@@ -98,13 +98,12 @@ const getSentiments = (req, res) => {
     })
 }
 
-const getKeyTerms = (req, res) => {
+const getPositiveTerms = (req, res) => {
     const db = dbPool.getDb()
 
     db.collection('business_with_positives').find({
         business_id : req.params.business_id
     }, {
-        positives : 1,
         name : 1,
         negatives : 1
     }).toArray((err, data) => {
@@ -114,17 +113,45 @@ const getKeyTerms = (req, res) => {
         }
         if (data == null || data.length == 0) res.json({})
         else {
-            let positives = data[0].positives.split(' ')
-            let negatives = data[0].negatives.split(' ')
-            res.json({
-                business_id : req.params.business_id,
-                business_name : data[0].name,
-                positives : positives,
-                negatives : negatives
-            })
+            let negatives = data[0].positives.split(' ').map(e => {
+                let term = e.split(':')[0]
+                let frequency = parseInt(e.split(':')[1]) == NaN ? 0 : parseInt(e.split(':')[1])
+                return {
+                    name : term,
+                    weight : frequency
+                }
+            }).filter(e => e.name != "" && e.weight != null)
+            res.json(negatives)
         }
     })
+}
 
+const getNegativeTerms = (req, res) => {
+    const db = dbPool.getDb()
+
+    db.collection('business_with_positives').find({
+        business_id : req.params.business_id
+    }, {
+        name : 1,
+        negatives : 1
+    }).toArray((err, data) => {
+        if (err) {
+            log.error(err)
+            throw err
+        }
+        if (data == null || data.length == 0) res.json({})
+        else {
+            let negatives = data[0].negatives.split(' ').map(e => {
+                let term = e.split(':')[0]
+                let frequency = parseInt(e.split(':')[1]) == NaN ? 0 : parseInt(e.split(':')[1])
+                return {
+                    name : term,
+                    weight : frequency
+                }
+            }).filter(e => e.name != "" && e.weight != null && e.name != "nan")
+            res.json(negatives)
+        }
+    })
 }
 
 const getRatings = (req, res) => {
@@ -214,7 +241,8 @@ module.exports = {
     getBusinessesbyNameCityState,
     getAllBusinesses,
     getSentiments,
-    getKeyTerms,
+    getPositiveTerms,
+    getNegativeTerms,
     getRatings,
     getGoodTopics,
     getBadTopics

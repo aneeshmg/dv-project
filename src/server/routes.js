@@ -10,7 +10,8 @@ router.get('/getbusinessesbynamecitystate/:Bizname/:Bizcity/:Bizstate',handlers.
 
 router.get('/sentiment/:business_id/:year', handlers.getSentiments)
 
-router.get('/positivesNegatives/:business_id', handlers.getKeyTerms)
+router.get('/positives/:business_id', handlers.getPositiveTerms)
+router.get('/negatives/:business_id', handlers.getNegativeTerms)
 
 router.get('/ratings/:business_id/:year', handlers.getRatings)
 
