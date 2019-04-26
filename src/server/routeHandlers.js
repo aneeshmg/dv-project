@@ -61,7 +61,7 @@ const getBusinessesbyNameCityState = (req, res) => {
     const Bizname = req.params.Bizname;
     const Bizcity = req.params.Bizcity;
     const Bizstate = req.params.Bizstate;
-    Business.findByBiznamecitystate(Bizname,Bizcity,Bizstate)
+    Business.findByBiznamecitystate(Bizname, Bizcity, Bizstate)
         .then(busobj => {
             if (!busobj) {
                 return res.redirect('/');
@@ -78,7 +78,7 @@ const getSentiments = (req, res) => {
         business_id: req.params.business_id,
         date: req.params.year
     }, {
-        business_name : 1,
+        business_name: 1,
         sentiment_score: 1
     }).toArray((err, data) => {
         if (err) {
@@ -102,10 +102,10 @@ const getPositiveTerms = (req, res) => {
     const db = dbPool.getDb()
 
     db.collection('business_with_positives').find({
-        business_id : req.params.business_id
+        business_id: req.params.business_id
     }, {
-        name : 1,
-        negatives : 1
+        name: 1,
+        negatives: 1
     }).toArray((err, data) => {
         if (err) {
             log.error(err)
@@ -117,8 +117,8 @@ const getPositiveTerms = (req, res) => {
                 let term = e.split(':')[0]
                 let frequency = parseInt(e.split(':')[1]) == NaN ? 0 : parseInt(e.split(':')[1])
                 return {
-                    name : term,
-                    weight : frequency
+                    name: term,
+                    weight: frequency
                 }
             }).filter(e => e.name != "" && e.weight != null)
             res.json(negatives)
@@ -130,10 +130,10 @@ const getNegativeTerms = (req, res) => {
     const db = dbPool.getDb()
 
     db.collection('business_with_positives').find({
-        business_id : req.params.business_id
+        business_id: req.params.business_id
     }, {
-        name : 1,
-        negatives : 1
+        name: 1,
+        negatives: 1
     }).toArray((err, data) => {
         if (err) {
             log.error(err)
@@ -145,8 +145,8 @@ const getNegativeTerms = (req, res) => {
                 let term = e.split(':')[0]
                 let frequency = parseInt(e.split(':')[1]) == NaN ? 0 : parseInt(e.split(':')[1])
                 return {
-                    name : term,
-                    weight : frequency
+                    name: term,
+                    weight: frequency
                 }
             }).filter(e => e.name != "" && e.weight != null && e.name != "nan")
             res.json(negatives)
@@ -170,12 +170,12 @@ const getRatings = (req, res) => {
         else {
             let o = data.map(e => {
                 return {
-                    business_id : req.params.business_id,
-                    reviewer_id : e.user_id,
-                    business_name : e.business_name,
-                    impact_score : e.impact_score,
+                    business_id: req.params.business_id,
+                    reviewer_id: e.user_id,
+                    business_name: e.business_name,
+                    impact_score: e.impact_score,
                     year: e.date,
-                    rating: Math.floor(Math.random() * 5) + 1 
+                    rating: Math.floor(Math.random() * 5) + 1
                 }
             })
             console.log(o)
@@ -184,12 +184,21 @@ const getRatings = (req, res) => {
     })
 }
 
-const getGoodTopics = (req, res) => {
+const getTopics = (req, res) => {
     const db = dbPool.getDb()
+    console.log(req.params)
 
     db.collection('main').find({
         business_id: req.params.business_id,
-        date: req.params.year
+        date: parseInt(req.params.year)
+    }, {
+        _id: 0,
+        user_id: 0,
+        topic: 1,
+        sentiment_score: 1,
+        impact_score: 1,
+        business_name: 0,
+        review_text: 0
     }).toArray((err, data) => {
         if (err) {
             log.error(err)
@@ -197,41 +206,34 @@ const getGoodTopics = (req, res) => {
         }
         if (data == null || data.length == 0) res.json({})
         else {
-            let goodTopics = data.filter(e => parseFloat(e.sentiment_score) > 0).map(e => {
-                return {
-                    name : e.topic,
-                    weight : e.impact_score
-                }
-            })
-            res.json(goodTopics)
+            let goodTopics = data.filter(e => e.topic != '' && e.topic != null && e.sentiment_score != '' && e.sentiment_score != 'nan' && e.sentiment_score >= 0)
+                .map(e => {
+                    return {
+                        text: e.review_text,
+                        rating: e.stars,
+                        name: e.topic,
+                        value: parseInt(e.impact_score) * 30
+                    }
+                })
+            let badTopics = data.filter(e => e.topic != '' && e.topic != null && e.sentiment_score != '' && e.sentiment_score != 'nan' && e.sentiment_score < 0)
+                .map(e => {
+                    return {
+                        text: e.review_text,
+                        rating: e.stars,
+                        name: e.topic,
+                        value: parseInt(e.impact_score) * 30
+                    }
+                })
+            res.json([{
+                name: 'Bad',
+                data: badTopics
+            }, {
+                name: 'Good',
+                data: goodTopics
+            }])
         }
     })
 }
-
-const getBadTopics = (req, res) => {
-    const db = dbPool.getDb()
-
-    db.collection('main').find({
-        business_id: req.params.business_id,
-        date: req.params.year
-    }).toArray((err, data) => {
-        if (err) {
-            log.error(err)
-            throw err
-        }
-        if (data == null || data.length == 0) res.json({})
-        else {
-            let badTopics = data.filter(e => parseFloat(e.sentiment_score) < 0).map(e => {
-                return {
-                    name : e.topic,
-                    weight : Math.ceil(e.impact_score)
-                }
-            })
-            res.json(badTopics)
-        }
-    })
-}
-
 
 module.exports = {
     index,
@@ -244,6 +246,5 @@ module.exports = {
     getPositiveTerms,
     getNegativeTerms,
     getRatings,
-    getGoodTopics,
-    getBadTopics
+    getTopics
 }
