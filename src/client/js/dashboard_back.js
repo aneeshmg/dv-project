@@ -242,11 +242,8 @@ var data = [
   for (d in data) {
     console.log(data[d]);
     for (l in data[d]) {
-      if (uniqueBizIds == null || uniqueBizIds.length == 0) {
-        uniqueBizIds.push(data[d][l].business_id);
-      } else {
-        break;
-      }
+      uniqueBizIds.push(data[d][l].business_id);
+      break;
     }
     break;
   }
