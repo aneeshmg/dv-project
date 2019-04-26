@@ -105,54 +105,6 @@ class Business {
 
   static findByBuzName(Buzname) {
     //console.log("Inside the func");
-<<<<<<< Updated upstream
-  const db = getDb();
-  return db
-    .collection('businesses')
-    .find({ name: Buzname })
-    .toArray()
-    .then(business => {
-      //console.log(business);
-      return business;
-    })
-    .catch(err => {
-      console.log(err);
-    });
-}
-
-
-static findByBiznamecitystate(Bizname,Bizcity,Bizstate) {
-  //console.log("Inside the func");
-const db = getDb();
-return db
-  .collection('businesses')
-  .find({ name: Bizname, city : Bizcity,  state: Bizstate }, { projection: { _id: 0, business_id : 1 } })
-  .toArray()
-  .then(business => {
-    //console.log(business);
-    return business;
-  })
-  .catch(err => {
-    console.log(err);
-  });
-}
-
-  static findWithinLoc(lat1,long1,lat2,long2) {
-    //console.log("Inside the func");
-  const db = getDb();
-  return db
-    .collection('businesses')//.find({longitude: { $lt: -70 }})
-    .find({$and:[{latitude : {$lte :parseFloat(lat2), $gte : parseFloat(lat1)}}, {longitude : {$lte :parseFloat(long2), $gte : parseFloat(long1)}}]})
-    .toArray()
-    .then(restaurants => {
-      //console.log(restaurants);
-      return restaurants;
-    })
-    .catch(err => {
-      console.log(err);
-    });
-}
-=======
     const db = getDb();
     return db
       .collection("businesses")
@@ -186,7 +138,6 @@ return db
         console.log(err);
       });
   }
->>>>>>> Stashed changes
 
   static deleteById(BussID) {
     const db = getDb();

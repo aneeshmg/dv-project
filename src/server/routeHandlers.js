@@ -69,20 +69,6 @@ const getBusinessesbyName = (req, res) => {
             res.json(busobj);
         })
         .catch(err => log.error(err));
-};
-
-const getBusinessesbyNameCityState = (req, res) => {
-    const Bizname = req.params.Bizname;
-    const Bizcity = req.params.Bizcity;
-    const Bizstate = req.params.Bizstate;
-    Business.findByBiznamecitystate(Bizname, Bizcity, Bizstate)
-        .then(busobj => {
-            if (!busobj) {
-                return res.redirect('/');
-            }
-            res.json(busobj);
-        })
-        .catch(err => log.error(err));
 }
 
 const getSentiments = (req, res) => {
