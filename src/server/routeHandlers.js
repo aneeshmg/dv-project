@@ -180,7 +180,7 @@ const getRatings = (req, res) => {
                     business_name: e.business_name,
                     impact_score: e.impact_score,
                     year: e.date,
-                    rating: Math.floor(Math.random() * 5) + 1
+                    rating: e.stars
                 }
             })
             console.log(o)
