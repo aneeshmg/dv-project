@@ -162,7 +162,6 @@ const getNegativeTerms = (req, res) => {
 const getRatings = (req, res) => {
     const db = dbPool.getDb();
 
-    // TODO: fix rating once db is ready
     db.collection('main').find({
         business_id: req.params.business_id,
         date: req.params.year
