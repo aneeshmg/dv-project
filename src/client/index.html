@@ -14,42 +14,32 @@
 </head>
 
 <body>
-	<div id="top_bar">
-		<img src="img/yelp-logo.png" style="width: 200px;height: 90px;margin-top: -25px">
+
+	<!-- UI Elements  -->
+	<div id = "top_bar"><img src="img/yelp-logo.png" style="width: 200px;height: 90px;margin-top: -40px;margin-left: -25px"></div>
+	<div id="search">
+	  <div class="autocomplete">
+	    <span style="display: inline-block;"><h2>Business Name</h2><input id = "business_autocomplete" type="text" name="business" placeholder="Type in your Business"></span>
+	  </div>
+	  <span style="display: inline-block;margin-left: 20px"><h2>Location</h2><input id="autocomplete" placeholder="Enter your address" type="text"></input></span>
+	  <input type="submit" value="Submit" onclick="search()">
 	</div>
-	<div class='container'>
-
-		<div id="search">
-			<div class="autocomplete">
-				<span style="display: inline-block;">
-					<h2>Business Name</h2><input id="business_autocomplete" type="text" name="business"
-						placeholder="Type in your Business">
-				</span>
-			</div>
-			<span style="display: inline-block;margin-left: 20px">
-				<h2>Location</h2><input id="autocomplete" placeholder="Enter your address" type="text"></input>
-			</span>
-			<input type="submit" value="Submit" onclick="return search()">
-		</div>
-		<!--/form-->
-		<div id="par"></div>
-		<div id="map"></div>
-		<div id="dashboard">
-			<div id="biz_info" style="background-color: yellow"></div>
-		</div>
-
+	<div id="par"></div>
+	<div id="map"></div>
+	<br><br>
+	<div id = "dashboard" >
+		<div><center><h1 id="dash_title" style = "color: grey; font-size: 40px"></h1></center></div>
+		<div id="biz_info" style="color: grey"></div><br><br>
+		<div id="my_dataviz" style="border:0.5px groove grey; display: inline-block;"><h1 id="graph_title"></h1></div>
 	</div>
 
 
 	<!-- Javascript Scripts -->
 	<script src='https://d3js.org/d3.v4.min.js'></script>
-	<script src="js/map.js"></script>
-	<script src="js/search_submit.js"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCzsPup08BPNTtMW4i6r8l4ZmcaivU0Jw&libraries=places&callback=initMap"
-		async defer></script>
-	<script src="https://code.jquery.com/jquery-3.4.0.min.js"
-		integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCzsPup08BPNTtMW4i6r8l4ZmcaivU0Jw&libraries=places&callback=initMap" async defer></script>
+	<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+
 	<script src="js/business_autocomplete.js"></script>
 	<script src="js/map.js"></script>
 	<script src="js/search_submit.js"></script>
