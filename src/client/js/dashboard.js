@@ -1,12 +1,19 @@
 var business_id, business_info;
 
-function dashboard_load(biz_id, biz_info) {
+function dashboard_load(biz_id, biz_info, competitor_array) {
+  var competitor_bizID = [];
+  for (var i = 1; i < 5; i++) {
+    competitor_bizID.push(
+      competitor_array[i].split("<br />")[0].split(": ")[1]
+    );
+  }
+
   document.getElementById("dash_title").innerHTML = "Dashboard";
   business_id = biz_id;
   business_info = biz_info;
   document.getElementById("biz_info").innerHTML = business_info;
   document.getElementById("graph_title").innerHTML = "Graph";
-  avg_rating_chart(biz_id);
+  avg_rating_chart(biz_id, competitor_bizID);
   //sentiment_chart(biz_id);
   //bubble(biz_id);
   //frequent_cloud(biz_id);
@@ -59,20 +66,17 @@ function getAverageRating(data, keys) {
     2018
   ]; //*** Change this to include all the years
   var avgRating, i;
-  // for (bID of keys) {
-  bID = keys;
-  console.log(bID);
-  for (i = 0; i < years.length; i++) {
-    // avgRating = calculateAverage(data, bID, years[i]);
-    avgRating = calculateAverage(data, bID, years[i]);
-    var obj = {};
-    obj.year = years[i];
-    obj.businessName = getBusinessName(data, bID);
-    obj.businessID = bID;
-    obj.wRating = avgRating;
-    formattedData.push(obj);
+  for (bID of keys) {
+    for (i = 0; i < years.length; i++) {
+      avgRating = calculateAverage(data, bID, years[i]);
+      var obj = {};
+      obj.year = years[i];
+      obj.businessName = getBusinessName(data, bID);
+      obj.businessID = bID;
+      obj.wRating = avgRating;
+      formattedData.push(obj);
+    }
   }
-  //}
   return formattedData;
 }
 
@@ -124,14 +128,11 @@ function getAverageSentinmentForYear(data, bID, yr) {
   return avg / count;
 }
 
-function avg_rating_chart(myBizID) {
+function avg_rating_chart(myBizID, uniqueBizIds) {
   //*** This variable should ideally be passed to get the 2 graphs, ideally via  funcion.
   // Wrap the entire script tag in a function
 
   // set the dimensions and margins of the graph
-
-  document.getElementById("par").innerHTML = myBizID;
-  //console.log(myBizID)
 
   var margin = { top: 100, right: 100, bottom: 50, left: 60 },
     width = 600 - margin.left - margin.right,
@@ -202,18 +203,42 @@ var data = [
 
   // *** Change this array to include all the years
   var data = [];
-  for (var i = 2005; i <= 2018; i++) {
-    $.ajax({
-      async: false,
-      type: "GET",
-      //dataType: 'application/json; charset=utf-8',
-      global: false,
-      url: "http://localhost:4000/ratings/" + myBizID + "/" + i,
-      success: function(e) {
-        data.push(e);
-      }
-    });
+  var data2 = [];
+  var data3 = [];
+  uniqueBizIds.push(myBizID);
+
+  for (var d in uniqueBizIds) {
+    for (var i = 2005; i <= 2018; i++) {
+      $.ajax({
+        async: false,
+        type: "GET",
+        global: false,
+        url: "http://localhost:4000/ratings/" + uniqueBizIds[d] + "/" + i,
+        success: function(e) {
+          data2.push(e);
+        }
+      });
+    }
   }
+
+  for (var d in data2)
+    if (data2[d].length != null) {
+      for (var d2 in data2[d]) data.push(data2[d][d2]);
+    }
+
+  for (e of data) {
+    e["businessID"] = e.business_id;
+    e["businessName"] = e.business_name;
+    e["impactScore"] = e.impact_score;
+    e["businessID"] = e.business_id;
+  }
+
+  delete data.business_id;
+
+  console.log(data);
+
+  console.log(uniqueBizIds);
+
   var yearsArr = [
     "2005",
     "2006",
@@ -237,20 +262,23 @@ var data = [
       return d.businessID;
     })
 		.keys();*/
-  var uniqueBizIds = [];
+  /*var uniqueBizIds = [];
   //console.log(data);
-  for (d in data) {
-    console.log(data[d]);
+  for (var d=0;d<14;d++) {
+    console.log(data[d])
+    
     for (l in data[d]) {
-      if (uniqueBizIds == null || uniqueBizIds.length == 0) {
-        uniqueBizIds.push(data[d][l].business_id);
-      } else {
-        break;
+      console.log(data[d][l])
+      if(data[d][l] != null)
+      {
+          uniqueBizIds.push(data[d][l].business_id)
+          break;
       }
     }
-    break;
   }
-  console.log(uniqueBizIds);
+  console.log("haha")
+  console.log(uniqueBizIds[0])
+  */
 
   var formattedLineData = getAverageRating(data, uniqueBizIds); // Calculate weighted average for each year
 
