@@ -11,6 +11,35 @@
 	<link rel="stylesheet" href="css/normalize.css" />
 	<link rel="stylesheet" href="css/mini-default.min.css" />
 	<link href="css/main.css" rel="stylesheet" type="text/css">
+
+	<style>
+		#wordbubble {
+			background-color: dimgray;
+			min-width: 320px;
+			max-width: 100%;
+			margin: 0 auto;
+			border: 2px solid aqua;
+		}
+
+		#positives,
+		#negatives {
+			border: 1px solid salmon;
+			min-width: 310px;
+			max-width: 800px;
+			border-radius: 50% 50% 50% 50%;
+			width: 500px;
+			height: 300px;
+			margin: 0 auto
+		}
+
+		#negatives {
+			background-color: rgb(138, 208, 248);
+		}
+
+		#positives {
+			background-color: rgb(250, 163, 104);
+		}
+	</style>
 </head>
 
 <body>
@@ -31,6 +60,9 @@
 		<div><center><h1 id="dash_title" style = "color: grey; font-size: 40px"></h1></center></div>
 		<div id="biz_info" style="color: grey"></div><br><br>
 		<div id="my_dataviz" style="border:0.5px groove grey; display: inline-block;"><h1 id="graph_title"></h1></div>
+		<div id='wordbubble'></div>
+		<div id="positives"></div>
+		<div id="negatives"></div>
 	</div>
 
 
@@ -39,11 +71,18 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCzsPup08BPNTtMW4i6r8l4ZmcaivU0Jw&libraries=places&callback=initMap" async defer></script>
 	<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
 	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/highcharts-more.js"></script>
+	<script src="https://code.highcharts.com/modules/wordcloud.js"></script>
 
 	<script src="js/business_autocomplete.js"></script>
 	<script src="js/map.js"></script>
 	<script src="js/search_submit.js"></script>
+	<script src="js/wordbubble.js"></script>
+	<script src="js/wordcloud-negatives.js"></script>
+	<script src="js/wordcloud-positives.js"></script>
 	<script src="js/dashboard.js"></script>
+
 </body>
 
 </html>

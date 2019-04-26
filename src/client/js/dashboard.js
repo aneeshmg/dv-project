@@ -130,6 +130,7 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
   // Wrap the entire script tag in a function
 
   // set the dimensions and margins of the graph
+  d3.selectAll(".rating").remove();
 
   var margin = { top: 100, right: 100, bottom: 50, left: 60 },
     width = 600 - margin.left - margin.right,
@@ -152,6 +153,7 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
   var svg = d3
     .select("#my_dataviz")
     .append("svg")
+    .attr("class", "rating")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -423,6 +425,9 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
     })
     .on("click", function(d, i) {
       loadSentiment(d.businessID);
+      bubble(d.businessID, d.year);
+      positiveCloud(d.businessID);
+      negativeCloud(d.businessID);
     });
 
   svg
@@ -687,4 +692,15 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
       });
   }
 }
-//})
+
+function bubble(myBizID, year) {
+  generateWordBubble(myBizID, year);
+}
+
+function negativeCloud(myBizID) {
+  generateWordCloudNegatives(myBizID);
+}
+
+function positiveCloud(myBizID) {
+  setTimeout(() => generateWordCloudPositives(myBizID), 300);
+}
