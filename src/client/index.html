@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Security-Policy"
 		content="script-src * data: https://ssl.gstatic.com 'unsafe-inline' 'unsafe-eval';">
 
-	<title></title>
+	<title>Yelp data Visualization | DataVisualization Project Spring 2019 (Group 9)</title>
 	<link href="css/autocomplete.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="css/normalize.css" />
 	<link rel="stylesheet" href="css/mini-default.min.css" />
@@ -14,25 +14,30 @@
 </head>
 
 <body>
-	<!-- UI Elements  -->
-	<div id="top_bar"><img src="img/yelp-logo.png" style="width: 200px;height: 90px;margin-top: -25px"></div>
-	<div id="search">
-		<div class="autocomplete">
-			<span style="display: inline-block;">
-				<h2>Business Name</h2><input id="business_autocomplete" type="text" name="business"
-					placeholder="Type in your Business">
-			</span>
-		</div>
-		<span style="display: inline-block;margin-left: 20px">
-			<h2>Location</h2><input id="autocomplete" placeholder="Enter your address" type="text"></input>
-		</span>
-		<input type="submit" value="Submit" onclick="return search()">
+	<div id="top_bar">
+		<img src="img/yelp-logo.png" style="width: 200px;height: 90px;margin-top: -25px">
 	</div>
-	<!--/form-->
-	<div id="par"></div>
-	<div id="map"></div>
-	<div id="dashboard">
-		<div id="biz_info" style="background-color: yellow"></div>
+	<div class='container'>
+
+		<div id="search">
+			<div class="autocomplete">
+				<span style="display: inline-block;">
+					<h2>Business Name</h2><input id="business_autocomplete" type="text" name="business"
+						placeholder="Type in your Business">
+				</span>
+			</div>
+			<span style="display: inline-block;margin-left: 20px">
+				<h2>Location</h2><input id="autocomplete" placeholder="Enter your address" type="text"></input>
+			</span>
+			<input type="submit" value="Submit" onclick="return search()">
+		</div>
+		<!--/form-->
+		<div id="par"></div>
+		<div id="map"></div>
+		<div id="dashboard">
+			<div id="biz_info" style="background-color: yellow"></div>
+		</div>
+
 	</div>
 
 
