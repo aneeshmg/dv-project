@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 body {
     background-color: #3e3e3e;
     margin: 0;
@@ -74,15 +73,3 @@ input[type=text] {
     height: 2em;
     width: 500px
 }
-=======
-body{background-color: #1C2833;}
-#top_bar {overflow: hidden;height: 45px;}
-#map{height:460px;width: 100%}
-#search{height:75px;width: 100%;}
-#par{height: 30px;fill: red;color: red;font-size: 20px}
-p{fill: white;color: white;}
-h1{fill: white;color: white;font-family:Helvetica, Arial, sans-serif;font-size:15pt;line-height:1.8em;height:1.5em;margin:0;padding:0;}
-h2{fill: white;color: white;font-family:Helvetica, Arial, sans-serif;font-size:15pt;line-height:1.8em;height:1.5em;margin:0;padding:0;}
-h3{fill: white;color: white;font-family:Helvetica, Arial, sans-serif;font-size:15pt;line-height:1.8em;height:1.5em;margin:0;padding:0;}
-input[type=text]{font-family:Helvetica, Arial, sans-serif;font-size:15pt;line-height:1.8em;height:2em;width: 500px}
->>>>>>> Stashed changes
