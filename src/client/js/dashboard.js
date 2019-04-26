@@ -14,7 +14,6 @@ function dashboard_load(biz_id, biz_info, competitor_array) {
   document.getElementById("biz_info").innerHTML = business_info;
   document.getElementById("graph_title").innerHTML = "Graph";
   avg_rating_chart(biz_id, competitor_bizID);
-  //sentiment_chart(biz_id);
   //bubble(biz_id);
   //frequent_cloud(biz_id);
 }
@@ -35,9 +34,7 @@ function calculateAverage(data, bID, yr) {
     avg = 0.0,
     count = 0;
   for (i = 0; i < data.length; i++) {
-    //if (data[i].businessID == bID && parseInt(data[i].year, 10) == yr) {
-    //console.log(bID);
-    if (data[i].businessID == bID) {
+    if (data[i].businessID == bID && parseInt(data[i].year, 10) == yr) {
       count++;
       avg = avg + parseFloat(data[i].rating); //parseFloat(data[i].impactScore)*
     }
@@ -191,15 +188,6 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
   //Read the data
   //Replace with d3.json(URL?Param1=value1, function(data){) ***
   //d3.csv("SampleWeightedRating.csv", function(data) {
-  /*
-var data = [
-  {"businessID":"123a", "year":2011, "businessName":"BizA", "rating": 4, "impactScore": 1},
-  {"businessID": "123b", "year":2010, "businessName":"BizB", "rating": 3, "impactScore": 2}
-];
-*/
-  //data=///rest call
-
-  //d3.json(URL, function(data){
 
   // *** Change this array to include all the years
   var data = [];
@@ -233,12 +221,6 @@ var data = [
     e["businessID"] = e.business_id;
   }
 
-  delete data.business_id;
-
-  console.log(data);
-
-  console.log(uniqueBizIds);
-
   var yearsArr = [
     "2005",
     "2006",
@@ -255,30 +237,6 @@ var data = [
     "2017",
     "2018"
   ];
-
-  /*var uniqueBizIds = d3
-    .map(data, function(d) {
-      console.log("haha" + d);
-      return d.businessID;
-    })
-		.keys();*/
-  /*var uniqueBizIds = [];
-  //console.log(data);
-  for (var d=0;d<14;d++) {
-    console.log(data[d])
-    
-    for (l in data[d]) {
-      console.log(data[d][l])
-      if(data[d][l] != null)
-      {
-          uniqueBizIds.push(data[d][l].business_id)
-          break;
-      }
-    }
-  }
-  console.log("haha")
-  console.log(uniqueBizIds[0])
-  */
 
   var formattedLineData = getAverageRating(data, uniqueBizIds); // Calculate weighted average for each year
 
@@ -297,7 +255,7 @@ var data = [
   svg
     .append("g")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x).ticks(2));
+    .call(d3.axisBottom(x).ticks(7));
 
   //X-axis label
   svg
@@ -317,7 +275,7 @@ var data = [
     .scaleLinear()
     .domain([0, 5]) //0, d3.max(data, function(d) { return +d.n; })
     .range([height, 0]);
-  svg.append("g").call(d3.axisLeft(y));
+  svg.append("g").call(d3.axisLeft(y).ticks(5));
 
   // Y-axis label:
   svg
@@ -487,220 +445,246 @@ var data = [
 
     //	finalists(yeardr);
     d3.selectAll(".sentiment").remove();
-  }
-}
 
-function sentiment_chart(myBizID) {
-  var margin = { top: 100, right: 100, bottom: 50, left: 70 },
-    width = 600 - margin.left - margin.right,
-    height = 450 - margin.top - margin.bottom;
+    var margin = { top: 100, right: 100, bottom: 50, left: 70 },
+      width = 600 - margin.left - margin.right,
+      height = 450 - margin.top - margin.bottom;
 
-  // append the svg object to the body of the page
-  var svg = d3
-    .select("#my_dataviz")
-    .append("svg")
-    .attr("class", "sentiment")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    // append the svg object to the body of the page
+    var svg = d3
+      .select("#my_dataviz")
+      .append("svg")
+      .attr("class", "sentiment")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  //Read the data
-  //Replace with d3.json(URL?Param1=value1, function(data){ ***
-  //d3.csv("SampleSentiment.csv",function(data) {
+    //Read the data
+    //Replace with d3.json(URL?Param1=value1, function(data){ ***
+    //d3.csv("SampleSentiment.csv",function(data) {
 
-  var data;
-  for (var i = 2005; i <= 2018; i++) {
-    $.ajax({
-      async: false,
-      type: "GET",
-      global: false,
-      url: "http://localhost:4000/sentiment/" + myBizID + "/" + i,
-      success: function(e) {
-        if (e != null) {
+    var data = [];
+
+    for (var i = 2005; i <= 2018; i++) {
+      $.ajax({
+        async: false,
+        type: "GET",
+        global: false,
+        url: "http://localhost:4000/sentiment/" + gnvbizID + "/" + i,
+        success: function(e) {
           data.push(e);
         }
-      }
+      });
+    }
+
+    for (e of data) {
+      e["businessID"] = e.business_id;
+      e["businessName"] = e.business_name;
+      e["score"] = e.sentiment_score;
+    }
+
+    var bizName = getBusinessName(data, gnvbizID);
+
+    //Add title to graph
+    svg
+      .append("text")
+      .attr("x", 70)
+      .attr("y", -60)
+      .attr("text-anchor", "left")
+      .style("font-size", "30px")
+      .style("font-weight", "bold")
+      .text("Sentiment Across Years")
+      .style("fill", function(d) {
+        return "#2874A6";
+      });
+
+    // Add subtitle to graph
+    svg
+      .append("text")
+      .attr("x", 30)
+      .attr("y", -35)
+      .attr("text-anchor", "left")
+      .style("font-size", "20px")
+      .style("fill", "grey")
+      .style("max-width", 400)
+      .style("font-weight", "bold")
+      .text("Change in User sentiment across the years")
+      .style("fill", function(d) {
+        return "#2874A6";
+      });
+
+    // Adding a border
+    svg
+      .append("rect")
+      .attr("x", -50)
+      .attr("y", -90)
+      .attr("height", height + margin.top + margin.bottom - 10)
+      .attr("width", width + margin.left + margin.right - 20)
+      .style("stroke", "Grey")
+      .style("fill", "none")
+      .style("stroke-width", "0.5px");
+
+    // Add X axis
+
+    var averagedSentimentData = calculateAverageSentiment(data, gnvbizID);
+    var senti_domain = d3.extent(averagedSentimentData, function(d) {
+      return d.value;
     });
+    console.log(senti_domain);
+    var x = d3
+      .scaleLinear()
+      .domain([2005, 2018]) //Change this to include all te years ***
+      .range([0, width]);
+    svg
+      .append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x).ticks(7));
+
+    //X-axis label
+    svg
+      .append("text")
+      .attr("text-anchor", "middle")
+      .attr("x", width / 2)
+      .attr("y", height + 35)
+      .text("Year")
+      .style("font-weight", "Bold")
+      .style("font-size", "12px")
+      .style("fill", function(d) {
+        return "#2874A6";
+      });
+
+    // Add Y axis
+    var y = d3
+      .scaleLinear()
+      .domain([senti_domain[0], senti_domain[1] + 1])
+      .range([height, 0]);
+    svg.append("g").call(d3.axisLeft(y).ticks(5));
+
+    // Y-axis label:
+    svg
+      .append("text")
+      .attr("text-anchor", "end")
+      .attr("x", -40)
+      .attr("y", -10)
+      .text("Average Sentiment")
+      .style("font-size", "12px")
+      .style("font-weight", "Bold")
+      .attr("text-anchor", "start")
+      .style("fill", function(d) {
+        return "#2874A6";
+      });
+
+    //Y-Axis grid lines
+    function make_y_gridlines() {
+      return d3.axisLeft(y).ticks(2);
+    }
+
+    svg
+      .append("g")
+      .attr("class", "grid")
+      .attr("stroke", "#700")
+      .attr("stroke-dasharray", "2,2")
+      .call(
+        make_y_gridlines()
+          .tickSize(-width * 1)
+          .tickFormat("")
+      );
+
+    // Add the line
+    var line = svg
+      .selectAll(".line")
+      .data(averagedSentimentData)
+      .enter();
+
+    line
+      .append("path")
+      .datum(averagedSentimentData)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1.5)
+      .attr(
+        "d",
+        d3
+          .line()
+          .x(function(d) {
+            return x(d.year);
+          })
+          .y(function(d) {
+            return y(d.value);
+          })
+      );
+
+    svg
+      .append("path")
+      .datum(averagedSentimentData)
+      .attr("fill", "#69b3a2")
+      .attr("fill-opacity", 0.3)
+      .attr("stroke", "none")
+      .attr(
+        "d",
+        d3
+          .area()
+          .x(function(d) {
+            return x(d.year);
+          })
+          .y0(height)
+          .y1(function(d) {
+            return y(d.value);
+          })
+      );
+
+    line
+      .append("text")
+      .datum(function(d) {
+        return d[d.length - 1];
+      })
+      .attr("transform", function(d) {
+        return "translate(" + x(2014) + "," + y(0.8) + ")";
+      })
+      .attr("x", 10)
+      .attr("dy", ".35em")
+      .attr("font-size", "12px")
+      .text(bizName);
+
+    svg
+      .selectAll(".SentimentDot")
+      .data(averagedSentimentData)
+      .enter()
+      .append("circle")
+      .attr("cx", function(d) {
+        return x(d.year);
+      })
+      .attr("cy", function(d) {
+        return y(d.value);
+      })
+      .attr("r", 5)
+      .attr("fill", function(d) {
+        if (d.value < 0) return "#ae0404";
+        else return "#0000b3";
+      })
+      .on("mouseover", function(d) {
+        tooltip.style("opacity", 1);
+        d3.select(this)
+          .style("stroke", "black")
+          .transition()
+          .duration(250)
+          .attr("r", 8);
+      })
+      .on("mousemove", function(d) {
+        tooltip
+          .html("Sentiment value: " + d.value.toFixed(2))
+          .style("left", d3.event.pageX + 16 + "px")
+          .style("top", d3.event.pageY + 16 + "px");
+      })
+      .on("mouseleave", function(d) {
+        tooltip.style("opacity", 0);
+        d3.select(this)
+          .style("stroke", "none")
+          .transition()
+          .duration(250)
+          .attr("r", 5);
+      });
   }
-
-  var bizName = getBusinessName(data, gnvbizID);
-
-  //Add title to graph
-  svg
-    .append("text")
-    .attr("x", 70)
-    .attr("y", -60)
-    .attr("text-anchor", "left")
-    .style("font-size", "30px")
-    .style("font-weight", "bold")
-    .text("Sentiment Across Years")
-    .style("fill", function(d) {
-      return "#2874A6";
-    });
-
-  // Add subtitle to graph
-  svg
-    .append("text")
-    .attr("x", 30)
-    .attr("y", -35)
-    .attr("text-anchor", "left")
-    .style("font-size", "20px")
-    .style("fill", "grey")
-    .style("max-width", 400)
-    .style("font-weight", "bold")
-    .text("Change in User sentiment across the years")
-    .style("fill", function(d) {
-      return "#2874A6";
-    });
-
-  // Adding a border
-  svg
-    .append("rect")
-    .attr("x", -50)
-    .attr("y", -90)
-    .attr("height", height + margin.top + margin.bottom - 10)
-    .attr("width", width + margin.left + margin.right - 20)
-    .style("stroke", "Grey")
-    .style("fill", "none")
-    .style("stroke-width", "0.5px");
-
-  // Add X axis
-
-  var averagedSentimentData = calculateAverageSentiment(data, gnvbizID);
-  var x = d3
-    .scaleLinear()
-    .domain([2005, 2018]) //Change this to include all te years ***
-    .range([0, width]);
-  svg
-    .append("g")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x).ticks(4));
-
-  //X-axis label
-  svg
-    .append("text")
-    .attr("text-anchor", "middle")
-    .attr("x", width / 2)
-    .attr("y", height + 35)
-    .text("Year")
-    .style("font-weight", "Bold")
-    .style("font-size", "12px")
-    .style("fill", function(d) {
-      return "#2874A6";
-    });
-
-  // Add Y axis
-  var y = d3
-    .scaleLinear()
-    .domain([-1, 1])
-    .range([height, 0]);
-  svg.append("g").call(d3.axisLeft(y).ticks(2));
-
-  // Y-axis label:
-  svg
-    .append("text")
-    .attr("text-anchor", "end")
-    .attr("x", -40)
-    .attr("y", -10)
-    .text("Average Sentiment")
-    .style("font-size", "12px")
-    .style("font-weight", "Bold")
-    .attr("text-anchor", "start")
-    .style("fill", function(d) {
-      return "#2874A6";
-    });
-
-  //Y-Axis grid lines
-  function make_y_gridlines() {
-    return d3.axisLeft(y).ticks(2);
-  }
-
-  svg
-    .append("g")
-    .attr("class", "grid")
-    .attr("stroke", "#700")
-    .attr("stroke-dasharray", "2,2")
-    .call(
-      make_y_gridlines()
-        .tickSize(-width * 1)
-        .tickFormat("")
-    );
-
-  // Add the line
-  var line = svg
-    .selectAll(".line")
-    .data(averagedSentimentData)
-    .enter();
-
-  line
-    .append("path")
-    .datum(averagedSentimentData)
-    .attr("fill", "none")
-    .attr("stroke", "steelblue")
-    .attr("stroke-width", 1.5)
-    .attr(
-      "d",
-      d3
-        .line()
-        .x(function(d) {
-          return x(d.year);
-        })
-        .y(function(d) {
-          return y(d.value);
-        })
-    );
-
-  line
-    .append("text")
-    .datum(function(d) {
-      return d[d.length - 1];
-    })
-    .attr("transform", function(d) {
-      return "translate(" + x(2014) + "," + y(0.8) + ")";
-    })
-    .attr("x", 10)
-    .attr("dy", ".35em")
-    .attr("font-size", "12px")
-    .text(bizName);
-
-  svg
-    .selectAll(".SentimentDot")
-    .data(averagedSentimentData)
-    .enter()
-    .append("circle")
-    .attr("cx", function(d) {
-      return x(d.year);
-    })
-    .attr("cy", function(d) {
-      return y(d.value);
-    })
-    .attr("r", 5)
-    .attr("fill", function(d) {
-      if (d.value < 0) return "#ae0404";
-      else return "#0000b3";
-    })
-    .on("mouseover", function(d) {
-      tooltip.style("opacity", 1);
-      d3.select(this)
-        .style("stroke", "black")
-        .transition()
-        .duration(250)
-        .attr("r", 8);
-    })
-    .on("mousemove", function(d) {
-      tooltip
-        .html("Sentiment value: " + d.value.toFixed(2))
-        .style("left", d3.event.pageX + 16 + "px")
-        .style("top", d3.event.pageY + 16 + "px");
-    })
-    .on("mouseleave", function(d) {
-      tooltip.style("opacity", 0);
-      d3.select(this)
-        .style("stroke", "none")
-        .transition()
-        .duration(250)
-        .attr("r", 5);
-    });
 }
 //})
