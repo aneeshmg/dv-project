@@ -1,5 +1,4 @@
 function generateWordBubble(business_id, year) {
-    console.log('generating...')
     Highcharts.theme = {
         colors: ['#0098cd', '#dd661f']
     }
@@ -58,5 +57,5 @@ function generateWordBubble(business_id, year) {
     })
 }
 
-
-generateWordBubble('GMrwDXRlAZU2zj5nH6l4vQ', '2016')
+// For testing uncomment below line
+// generateWordBubble('GMrwDXRlAZU2zj5nH6l4vQ', '2016')

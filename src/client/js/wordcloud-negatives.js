@@ -235,5 +235,5 @@ function generateWordCloudNegatives(business_id) {
     })
 }
 
-
-generateWordCloudNegatives('GMrwDXRlAZU2zj5nH6l4vQ')
+// For testing uncomment the below
+// generateWordCloudNegatives('GMrwDXRlAZU2zj5nH6l4vQ')

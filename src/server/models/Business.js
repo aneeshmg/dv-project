@@ -111,7 +111,6 @@ class Business {
       .find({ name: Buzname })
       .toArray()
       .then(business => {
-        console.log(business);
         return business;
       })
       .catch(err => {
@@ -131,7 +130,6 @@ class Business {
       })
       .toArray()
       .then(restaurants => {
-        console.log(restaurants);
         return restaurants;
       })
       .catch(err => {

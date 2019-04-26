@@ -235,5 +235,5 @@ function generateWordCloudPositives(business_id) {
     })
 }
 
-
-setTimeout(() => generateWordCloudPositives('GMrwDXRlAZU2zj5nH6l4vQ'), 300)
+// For testing uncomment the below line
+// setTimeout(() => generateWordCloudPositives('GMrwDXRlAZU2zj5nH6l4vQ'), 300)
