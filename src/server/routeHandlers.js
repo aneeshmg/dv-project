@@ -77,7 +77,7 @@ const getSentiments = (req, res) => {
     db.collection("main")
         .find({
             business_id: req.params.business_id,
-            date: req.params.year
+            date: parseInt(req.params.year)
         }, {
             business_name: 1,
             sentiment_score: 1
@@ -164,7 +164,7 @@ const getRatings = (req, res) => {
 
     db.collection('main').find({
         business_id: req.params.business_id,
-        date: req.params.year
+        date: parseInt(req.params.year)
     }).toArray((err, data) => {
         if (err) {
             log.error(err)
@@ -182,7 +182,6 @@ const getRatings = (req, res) => {
                     rating: e.stars
                 }
             })
-            console.log(o)
             res.send(o)
         }
     })
@@ -190,7 +189,6 @@ const getRatings = (req, res) => {
 
 const getTopics = (req, res) => {
     const db = dbPool.getDb()
-    console.log(req.params)
 
     db.collection('main').find({
         business_id: req.params.business_id,
