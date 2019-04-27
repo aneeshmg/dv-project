@@ -1,5 +1,5 @@
  /* var business_names = [];
-  const url = "http://localhost:4000/businesses";
+  const url = "http://runge.la.asu.edu:4000/businesses";
   var request = new XMLHttpRequest();
   request.open('GET', url);
   request.responseType = 'text';
@@ -19,7 +19,7 @@ function called()
   console.log(business_names)
 }
 
-var url = "http://localhost:4000/businesses";
+var url = "http://runge.la.asu.edu:4000/businesses";
 var request = new XMLHttpRequest();
 request.open('GET', url);
 request.responseType = 'text';
@@ -35,7 +35,7 @@ myFetch.then(function(response) {
 console.log(business_names);
 
 
-const business_names = $.get("http://localhost:4000/businesses",function(data){
+const business_names = $.get("http://runge.la.asu.edu:4000/businesses",function(data){
     console.log(data)
     var temp = JSON.parse(data.responseJson)
     console.log(temp)
@@ -47,7 +47,7 @@ const business_names = $.get("http://localhost:4000/businesses",function(data){
 
 var myVariable;
 var business_names = []
-$.ajax({'async': false,'type': "GET",'global': false,'url': "http://localhost:4000/getbusinesses",'success': function (data) {myVariable = data;}});
+$.ajax({'async': false,'type': "GET",'global': false,'url': "http://runge.la.asu.edu:4000/getbusinesses",'success': function (data) {myVariable = data;}});
 
 for(row in myVariable){
   business_names.push(myVariable[row].name)

@@ -220,7 +220,7 @@ function generateWordCloudPositives(business_id) {
     Highcharts.setOptions(Highcharts.theme_positives);
 
 
-    let baseUrl = 'http://localhost:4000'
+    let baseUrl = 'http://runge.la.asu.edu:4000'
     $.get(`${baseUrl}/positives/${business_id}`, res => {
         Highcharts.chart('positives', {
             series: [{

@@ -220,7 +220,7 @@ function generateWordCloudNegatives(business_id) {
     Highcharts.setOptions(Highcharts.theme_negatives);
 
 
-    let baseUrl = 'http://localhost:4000'
+    let baseUrl = 'http://runge.la.asu.edu:4000'
     $.get(`${baseUrl}/negatives/${business_id}`, res => {
         Highcharts.chart('negatives', {
             series: [{

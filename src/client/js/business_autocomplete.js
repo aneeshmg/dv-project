@@ -83,7 +83,7 @@ $.ajax({
   async: false,
   type: "GET",
   global: false,
-  url: "http://localhost:4000/getbusinesses",
+  url: "http://runge.la.asu.edu:4000/getbusinesses",
   success: function(data) {
     myVariable = data;
   }

@@ -208,7 +208,7 @@ var data = [
       type: "GET",
       //dataType: 'application/json; charset=utf-8',
       global: false,
-      url: "http://localhost:4000/ratings/" + myBizID + "/" + i,
+      url: "http://runge.la.asu.edu:4000/ratings/" + myBizID + "/" + i,
       success: function(e) {
         data.push(e);
       }
@@ -484,7 +484,7 @@ function sentiment_chart(myBizID) {
       async: false,
       type: "GET",
       global: false,
-      url: "http://localhost:4000/sentiment/" + myBizID + "/" + i,
+      url: "http://runge.la.asu.edu:4000/sentiment/" + myBizID + "/" + i,
       success: function(e) {
         if (e != null) {
           data.push(e);

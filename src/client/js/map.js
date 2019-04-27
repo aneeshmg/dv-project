@@ -336,7 +336,7 @@ function plot_business_within_bound(mapa, business) {
     async: false,
     type: "GET",
     global: false,
-    url: "http://localhost:4000/getBusinessesWithinLoc/" +
+    url: "http://runge.la.asu.edu:4000/getBusinessesWithinLoc/" +
       minLat +
       "/" +
       minLng +

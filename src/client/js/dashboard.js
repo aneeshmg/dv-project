@@ -208,7 +208,7 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
         async: false,
         type: "GET",
         global: false,
-        url: "http://localhost:4000/ratings/" + uniqueBizIds[d] + "/" + i,
+        url: "http://runge.la.asu.edu:4000/ratings/" + uniqueBizIds[d] + "/" + i,
         success: function (e) {
           data2.push(e);
         }
@@ -503,7 +503,7 @@ function loadSentiment(gnvbizID) {
       async: false,
       type: "GET",
       global: false,
-      url: "http://localhost:4000/sentiment/" + gnvbizID + "/" + i,
+      url: "http://runge.la.asu.edu:4000/sentiment/" + gnvbizID + "/" + i,
       success: function (e) {
         data.push(e);
       }

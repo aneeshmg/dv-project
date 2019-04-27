@@ -20,7 +20,7 @@ function search(place) {
       type: "GET",
       global: false,
       url:
-        "http://localhost:4000/getbusinessesbynamecitystate/" +
+        "http://runge.la.asu.edu:4000/getbusinessesbynamecitystate/" +
         biz_name +
         "/" +
         biz_city +
@@ -35,7 +35,7 @@ function search(place) {
       async: false,
       type: "GET",
       global: false,
-      url: "http://localhost:4000/getbusinessbyID/" + biz_id,
+      url: "http://runge.la.asu.edu:4000/getbusinessbyID/" + biz_id,
       success: function(data) {
         myVariable = data;
       }
@@ -71,7 +71,7 @@ function search(place) {
         type: "GET",
         global: false,
         url:
-          "http://localhost:4000/getbusinessesbynamecitystate/" +
+          "http://runge.la.asu.edu:4000/getbusinessesbynamecitystate/" +
           biz_name +
           "/" +
           biz_city +
@@ -86,7 +86,7 @@ function search(place) {
         async: false,
         type: "GET",
         global: false,
-        url: "http://localhost:4000/getbusinessbyID/" + biz_id,
+        url: "http://runge.la.asu.edu:4000/getbusinessbyID/" + biz_id,
         success: function(data) {
           myVariable = data;
         }

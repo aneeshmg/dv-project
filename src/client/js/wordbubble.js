@@ -17,7 +17,7 @@ function generateWordBubble(business_id, year) {
     // Apply the theme
     Highcharts.setOptions(Highcharts.theme)
 
-    const baseUrl = 'http://localhost:4000'
+    const baseUrl = 'http://runge.la.asu.edu:4000'
     $.get(`${baseUrl}/topics/${business_id}/${year}`, res => {
 
         Highcharts.chart('wordbubble', {
