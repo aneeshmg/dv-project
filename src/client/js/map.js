@@ -5,186 +5,147 @@ var infowindow;
 var options = {
   types: ["(cities)"],
   zoom: 4,
-  center: { lat: 35.024, lng: -111.887 },
-  style: [
-    {
+  center: {
+    lat: 35.024,
+    lng: -111.887
+  },
+  style: [{
       elementType: "geometry",
-      stylers: [
-        {
-          color: "#ebe3cd"
-        }
-      ]
+      stylers: [{
+        color: "#ebe3cd"
+      }]
     },
     {
       elementType: "labels.text.fill",
-      stylers: [
-        {
-          color: "#523735"
-        }
-      ]
+      stylers: [{
+        color: "#523735"
+      }]
     },
     {
       elementType: "labels.text.stroke",
-      stylers: [
-        {
-          color: "#f5f1e6"
-        }
-      ]
+      stylers: [{
+        color: "#f5f1e6"
+      }]
     },
     {
       featureType: "administrative",
       elementType: "geometry.stroke",
-      stylers: [
-        {
-          color: "#c9b2a6"
-        }
-      ]
+      stylers: [{
+        color: "#c9b2a6"
+      }]
     },
     {
       featureType: "administrative.land_parcel",
-      stylers: [
-        {
-          visibility: "off"
-        }
-      ]
+      stylers: [{
+        visibility: "off"
+      }]
     },
     {
       featureType: "administrative.land_parcel",
       elementType: "geometry.stroke",
-      stylers: [
-        {
-          color: "#dcd2be"
-        }
-      ]
+      stylers: [{
+        color: "#dcd2be"
+      }]
     },
     {
       featureType: "administrative.land_parcel",
       elementType: "labels.text.fill",
-      stylers: [
-        {
-          color: "#ae9e90"
-        }
-      ]
+      stylers: [{
+        color: "#ae9e90"
+      }]
     },
     {
       featureType: "administrative.neighborhood",
-      stylers: [
-        {
-          visibility: "off"
-        }
-      ]
+      stylers: [{
+        visibility: "off"
+      }]
     },
     {
       featureType: "landscape.natural",
       elementType: "geometry",
-      stylers: [
-        {
-          color: "#dfd2ae"
-        }
-      ]
+      stylers: [{
+        color: "#dfd2ae"
+      }]
     },
     {
       featureType: "poi",
       elementType: "geometry",
-      stylers: [
-        {
-          color: "#dfd2ae"
-        }
-      ]
+      stylers: [{
+        color: "#dfd2ae"
+      }]
     },
     {
       featureType: "poi",
       elementType: "labels.text",
-      stylers: [
-        {
-          visibility: "off"
-        }
-      ]
+      stylers: [{
+        visibility: "off"
+      }]
     },
     {
       featureType: "poi",
       elementType: "labels.text.fill",
-      stylers: [
-        {
-          color: "#93817c"
-        }
-      ]
+      stylers: [{
+        color: "#93817c"
+      }]
     },
     {
       featureType: "poi.business",
-      stylers: [
-        {
-          visibility: "off"
-        }
-      ]
+      stylers: [{
+        visibility: "off"
+      }]
     },
     {
       featureType: "poi.park",
       elementType: "geometry.fill",
-      stylers: [
-        {
-          color: "#a5b076"
-        }
-      ]
+      stylers: [{
+        color: "#a5b076"
+      }]
     },
     {
       featureType: "poi.park",
       elementType: "labels.text.fill",
-      stylers: [
-        {
-          color: "#447530"
-        }
-      ]
+      stylers: [{
+        color: "#447530"
+      }]
     },
     {
       featureType: "road",
-      stylers: [
-        {
-          visibility: "off"
-        }
-      ]
+      stylers: [{
+        visibility: "off"
+      }]
     },
     {
       featureType: "road",
       elementType: "geometry",
-      stylers: [
-        {
-          color: "#f5f1e6"
-        }
-      ]
+      stylers: [{
+        color: "#f5f1e6"
+      }]
     },
     {
       featureType: "road",
       elementType: "labels",
-      stylers: [
-        {
-          visibility: "off"
-        }
-      ]
+      stylers: [{
+        visibility: "off"
+      }]
     },
     {
       featureType: "road",
       elementType: "labels.icon",
-      stylers: [
-        {
-          visibility: "off"
-        }
-      ]
+      stylers: [{
+        visibility: "off"
+      }]
     },
     {
       featureType: "road.arterial",
       elementType: "geometry",
-      stylers: [
-        {
-          color: "#fdfcf8"
-        }
-      ]
+      stylers: [{
+        color: "#fdfcf8"
+      }]
     },
     {
       featureType: "road.highway",
       elementType: "geometry",
-      stylers: [
-        {
+      stylers: [{
           color: "#f8c967"
         },
         {
@@ -195,109 +156,85 @@ var options = {
     {
       featureType: "road.highway",
       elementType: "geometry.stroke",
-      stylers: [
-        {
-          color: "#e9bc62"
-        }
-      ]
+      stylers: [{
+        color: "#e9bc62"
+      }]
     },
     {
       featureType: "road.highway.controlled_access",
       elementType: "geometry",
-      stylers: [
-        {
-          color: "#e98d58"
-        }
-      ]
+      stylers: [{
+        color: "#e98d58"
+      }]
     },
     {
       featureType: "road.highway.controlled_access",
       elementType: "geometry.stroke",
-      stylers: [
-        {
-          color: "#db8555"
-        }
-      ]
+      stylers: [{
+        color: "#db8555"
+      }]
     },
     {
       featureType: "road.local",
       elementType: "labels.text.fill",
-      stylers: [
-        {
-          color: "#806b63"
-        }
-      ]
+      stylers: [{
+        color: "#806b63"
+      }]
     },
     {
       featureType: "transit",
-      stylers: [
-        {
-          visibility: "off"
-        }
-      ]
+      stylers: [{
+        visibility: "off"
+      }]
     },
     {
       featureType: "transit.line",
       elementType: "geometry",
-      stylers: [
-        {
-          color: "#dfd2ae"
-        }
-      ]
+      stylers: [{
+        color: "#dfd2ae"
+      }]
     },
     {
       featureType: "transit.line",
       elementType: "labels.text.fill",
-      stylers: [
-        {
-          color: "#8f7d77"
-        }
-      ]
+      stylers: [{
+        color: "#8f7d77"
+      }]
     },
     {
       featureType: "transit.line",
       elementType: "labels.text.stroke",
-      stylers: [
-        {
-          color: "#ebe3cd"
-        }
-      ]
+      stylers: [{
+        color: "#ebe3cd"
+      }]
     },
     {
       featureType: "transit.station",
       elementType: "geometry",
-      stylers: [
-        {
-          color: "#dfd2ae"
-        }
-      ]
+      stylers: [{
+        color: "#dfd2ae"
+      }]
     },
     {
       featureType: "water",
       elementType: "geometry.fill",
-      stylers: [
-        {
-          color: "#b9d3c2"
-        }
-      ]
+      stylers: [{
+        color: "#b9d3c2"
+      }]
     },
     {
       featureType: "water",
       elementType: "labels.text",
-      stylers: [
-        {
-          visibility: "off"
-        }
-      ]
+      stylers: [{
+        visibility: "off"
+      }]
     },
     {
       featureType: "water",
       elementType: "labels.text.fill",
-      stylers: [
-        {
-          color: "#92998d"
-        }
-      ]
+      stylers: [{
+        color: "#92998d"
+      }]
     }
   ]
 };
@@ -317,6 +254,7 @@ function plot_business(business) {
 
   infowindow = new google.maps.InfoWindow();
 
+  // let biz_info = `<b>Name: </b>${business.name}, <br><i>${business.address} <br><i>${business.city}, ${business.state}</i><br><b>Rating: </b>${business.stars}`
   var biz_info =
     "Business ID: " +
     business.business_id +
@@ -334,10 +272,14 @@ function plot_business(business) {
     business.longitude +
     "<br />Yelp Rating: " +
     business.stars;
+    
   var mapa = new google.maps.Map(document.getElementById("map"), options);
-  mapa.setCenter({ lat: newLat, lng: newLng });
+  mapa.setCenter({
+    lat: newLat,
+    lng: newLng
+  });
   mapa.setZoom(12);
-  google.maps.event.addListenerOnce(mapa, "bounds_changed", function() {
+  google.maps.event.addListenerOnce(mapa, "bounds_changed", function () {
     plot_business_within_bound(mapa, business);
   });
   var marker = new google.maps.Marker({
@@ -345,14 +287,14 @@ function plot_business(business) {
     map: mapa,
     business_id: business.business_id
   });
-  marker.addListener("mouseover", function() {
+  marker.addListener("mouseover", function () {
     infowindow.setContent(biz_info);
     infowindow.open(mapa, this);
   });
-  marker.addListener("mouseout", function() {
+  marker.addListener("mouseout", function () {
     infowindow.close();
   });
-  marker.addListener("click", function() {
+  marker.addListener("click", function () {
     mapa.setCenter(marker.getPosition());
     dashboard_load(
       marker.business_id,
@@ -394,8 +336,7 @@ function plot_business_within_bound(mapa, business) {
     async: false,
     type: "GET",
     global: false,
-    url:
-      "http://localhost:4000/getBusinessesWithinLoc/" +
+    url: "http://localhost:4000/getBusinessesWithinLoc/" +
       minLat +
       "/" +
       minLng +
@@ -403,7 +344,7 @@ function plot_business_within_bound(mapa, business) {
       maxLat +
       "/" +
       maxLng,
-    success: function(data) {
+    success: function (data) {
       competitors = data;
     }
   });
@@ -415,7 +356,9 @@ function plot_business_within_bound(mapa, business) {
     if (competitors[i].stars >= 3.5) marker_color += "green-dot.png";
     else marker_color += "yellow-dot.png";
     var marker = new google.maps.Marker({
-      icon: { url: marker_color },
+      icon: {
+        url: marker_color
+      },
       position: new google.maps.LatLng(
         competitors[i].latitude,
         competitors[i].longitude
@@ -423,7 +366,9 @@ function plot_business_within_bound(mapa, business) {
       map: mapa,
       business_id: competitors[i].business_id
     });
-    var competitor_info =
+
+
+    competitor_info =
       "Business ID: " +
       competitors[i].business_id +
       "<br /><br />" +
@@ -440,24 +385,23 @@ function plot_business_within_bound(mapa, business) {
       competitors[i].longitude +
       "<br />Yelp Rating: " +
       competitors[i].stars;
-
     marker.setMap(mapa);
 
     google.maps.event.addListener(
       marker,
       "mouseover",
-      (function(marker, i) {
-        return function() {
+      (function (marker, i) {
+        return function () {
           infowindow.setContent(competitor_array[i]);
           infowindow.open(map, marker);
         };
       })(marker, i)
     );
-    marker.addListener("mouseout", function() {
+    marker.addListener("mouseout", function () {
       infowindow.close();
     });
 
-    marker.addListener("click", function() {
+    marker.addListener("click", function () {
       var temp = infowindow.getContent().split("<br />")[0];
       var temp_id = temp.split(": ")[1];
       dashboard_load(temp_id, infowindow.getContent(), competitor_array);

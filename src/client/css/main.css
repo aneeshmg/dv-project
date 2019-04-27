@@ -1,97 +1,60 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
 body {
-    background-color: #3e3e3e;
+    background-color: #F3FFBD;
     margin: 0;
     padding: 0;
-    font-family: monospace;
 }
 
 #top_bar {
-    overflow: hidden;
+    background-color: #70C1B3;
     height: 45px;
     padding: 2%;
+    padding-bottom: 3%;
+    border-bottom: 3px solid #FF1654;
+}
+
+#top_bar img {
+    width: 200px;
+    height: 90px;
+    margin-top: -40px;
+    margin-left: -25px;
 }
 
 #map {
     height: 460px;
-    width: 100%
-}
-
-#search {
-    height: 75px;
-    width: 100%;
+    width: 99%;
+    border: 1px solid #FF1654;
+    padding: 1%;
 }
 
 #par {
     height: 30px;
     fill: red;
     color: red;
-    font-size: 20px
-}
-
-p {
-    fill: white;
-    color: white;
-}
-
-h1 {
-    fill: white;
-    color: white;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 15pt;
-    line-height: 1.8em;
-    height: 1.5em;
-    margin: 0;
-    padding: 0;
-}
-
-h2 {
-    fill: white;
-    color: white;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 15pt;
-    line-height: 1.8em;
-    height: 1.5em;
-    margin: 0;
-    padding: 0;
-}
-
-h3 {
-    fill: white;
-    color: white;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 15pt;
-    line-height: 1.8em;
-    height: 1.5em;
-    margin: 0;
-    padding: 0;
+    font-size: 20px;
+    padding-left: 1%;
 }
 
 input[type=text] {
     font-family: Helvetica, Arial, sans-serif;
-    font-size: 15pt;
-    line-height: 1.8em;
-    height: 2em;
-    width: 500px
+    width: 100%;
 }
 
 #wordbubble {
-    background-color: dimgray;
-    min-width: 320px;
-    max-width: 600px;
     margin: 0 auto;
-    border: 2px solid aqua;
 }
 
 #positives,
 #negatives {
-    border: 1px solid salmon;
-    min-width: 310px;
-    max-width: 800px;
-    border-radius: 50% 50% 50% 50%;
+    /* border-radius: 40% 40% 40% 40%; */
     transition: 0.3s;
-    max-width: 500px;
-    max-height: 300px;
-    margin: 0 auto
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 #negatives {
@@ -100,4 +63,19 @@ input[type=text] {
 
 #positives {
     background-color: rgb(250, 163, 104);
+}
+
+.btn {
+    width: 100%;
+    background-color: #FF1654;
+}
+.btn:hover {
+    background-color: #ff4073;
+}
+#biz_info {
+    width: 100%;
+    background-color: #B2DBBF;
+}
+hr {
+    background-color: #FF1654;
 }

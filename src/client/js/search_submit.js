@@ -3,7 +3,7 @@ function search(place) {
   var location = document.getElementById("autocomplete").value;
 
   if (business == "" && location == "")
-    document.getElementById("par").innerHTML = "Please provide some input!!!!";
+    document.getElementById("par").innerHTML = "Please provide some input!!!!"
   else if (business == "") {
     document.getElementById("par").innerHTML = "Please select a Business!!!";
   } else if (location == "") {

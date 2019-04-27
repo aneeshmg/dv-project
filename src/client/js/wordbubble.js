@@ -1,6 +1,17 @@
 function generateWordBubble(business_id, year) {
     Highcharts.theme = {
-        colors: ['#0098cd', '#dd661f']
+        colors: ['#0098cd', '#dd661f'],
+        chart: {
+            backgroundColor: null
+        },
+        title: {
+            style: {
+                fontSize: '30px',
+                fontWeight: 'bold',
+                textTransform: 'uppercase',
+                color: 'black'
+            }
+        }
     }
     
     // Apply the theme
@@ -8,7 +19,6 @@ function generateWordBubble(business_id, year) {
 
     const baseUrl = 'http://localhost:4000'
     $.get(`${baseUrl}/topics/${business_id}/${year}`, res => {
-        console.log(res)
 
         Highcharts.chart('wordbubble', {
             chart: {
@@ -29,11 +39,11 @@ function generateWordBubble(business_id, year) {
                     zMin: 0,
                     zMax: 1000,
                     layoutAlgorithm: {
-                        gravitationalConstant: 0.05,
+                        gravitationalConstant: 0.1,
                         splitSeries: true,
                         seriesInteraction: false,
-                        dragBetweenSeries: true,
-                        parentNodeLimit: true
+                        dragBetweenSeries: false,
+                        parentNodeLimit: false
                     },
                     dataLabels: {
                         enabled: true,
@@ -41,7 +51,7 @@ function generateWordBubble(business_id, year) {
                         filter: {
                             property: 'y',
                             operator: '>',
-                            value: 2
+                            value: 0
                         },
                         style: {
                             color: 'black',
