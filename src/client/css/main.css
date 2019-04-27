@@ -73,3 +73,31 @@ input[type=text] {
     height: 2em;
     width: 500px
 }
+
+#wordbubble {
+    background-color: dimgray;
+    min-width: 320px;
+    max-width: 600px;
+    margin: 0 auto;
+    border: 2px solid aqua;
+}
+
+#positives,
+#negatives {
+    border: 1px solid salmon;
+    min-width: 310px;
+    max-width: 800px;
+    border-radius: 50% 50% 50% 50%;
+    transition: 0.3s;
+    max-width: 500px;
+    max-height: 300px;
+    margin: 0 auto
+}
+
+#negatives {
+    background-color: rgb(138, 208, 248);
+}
+
+#positives {
+    background-color: rgb(250, 163, 104);
+}
