@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #F3FFBD;
+    background-color: #E2E8DD;
     margin: 0;
     padding: 0;
 }
@@ -78,4 +78,8 @@ input[type=text] {
 }
 hr {
     background-color: #FF1654;
+}
+
+#my_dataviz, #sentiment-graph-box {
+    background-color: #b8dbfd;
 }

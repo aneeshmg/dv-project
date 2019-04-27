@@ -30,18 +30,18 @@ function getBusinessName(data, bID) {
 }
 
 function calculateAverage(data, bID, yr) {
-  var i,
-    avg = 0.0,
-    count = 0;
+  var i, avg = 0.0,
+    sumOfWeights = 0;
   for (i = 0; i < data.length; i++) {
     if (data[i].businessID == bID && parseInt(data[i].year, 10) == yr) {
-      count++;
-      avg = avg + parseFloat(data[i].rating); //parseFloat(data[i].impactScore)*
+      sumOfWeights = sumOfWeights + parseFloat(data[i].impactScore);
+      avg = avg + parseFloat(data[i].impactScore) * parseFloat(data[i].rating);
     }
   }
-  if (count == 0) count = 1;
+  if (sumOfWeights == 0)
+    sumOfWeights = 1;
 
-  return avg / count;
+  return avg / sumOfWeights;
 }
 
 function getAverageRating(data, keys) {
@@ -483,19 +483,19 @@ function loadSentiment(gnvbizID) {
   //Read the data
   //Replace with d3.json(URL?Param1=value1, function(data){ ***
   //d3.csv("SampleSentiment.csv",function(data) {
-      // Tooltip function
+  // Tooltip function
   var tooltip1 = d3
-  .select("#senti-graph")
-  .append("div")
-  .style("opacity", 0)
-  .attr("class", "tooltip")
-  .style("background-color", "black")
-  .style("width", "200px")
-  .style("height", "50px")
-  .style("position", "absolute")
-  .style("border-radius", "5px")
-  .style("padding", "10px")
-  .style("color", "white");
+    .select("#senti-graph")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "black")
+    .style("width", "200px")
+    .style("height", "50px")
+    .style("position", "absolute")
+    .style("border-radius", "5px")
+    .style("padding", "10px")
+    .style("color", "white");
   var data = [];
 
   for (var i = 2005; i <= 2018; i++) {
@@ -721,6 +721,9 @@ function loadSentiment(gnvbizID) {
 
 function bubble(myBizID, year) {
   generateWordBubble(myBizID, year)
+  setTimeout(() => {
+    $('#wordbubble .highcharts-color-1').style('color', 'magenta')
+  }, 1000)
 }
 
 function negativeCloud(myBizID) {
@@ -729,6 +732,8 @@ function negativeCloud(myBizID) {
 
 function positiveCloud(myBizID) {
   var n = $(document).height();
-  $('html, body').animate({ scrollTop: n * 2 }, 50);
+  $('html, body').animate({
+    scrollTop: n * 2
+  }, 50);
   setTimeout(() => generateWordCloudPositives(myBizID), 500)
 }

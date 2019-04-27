@@ -50,14 +50,15 @@ function generateWordBubble(business_id, year) {
                         format: '{point.name}',
                         filter: {
                             property: 'y',
-                            operator: '>',
+                            operator: '>=',
                             value: 0
                         },
                         style: {
-                            color: 'black',
+                            color: '#000000',
                             textOutline: 'none',
                             fontWeight: 'bold',
-                            fontSize: '20px'
+                            fontSize: '20px',
+                            opacity: '1.0'
                         }
                     }
                 }
