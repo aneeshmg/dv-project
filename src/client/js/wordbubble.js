@@ -41,7 +41,7 @@ function generateWordBubble(business_id, year) {
                         filter: {
                             property: 'y',
                             operator: '>',
-                            value: 250
+                            value: 2
                         },
                         style: {
                             color: 'black',

@@ -214,7 +214,7 @@ const getTopics = (req, res) => {
                         text: e.review_text,
                         rating: e.stars,
                         name: e.topic,
-                        value: parseInt(e.impact_score) * 50
+                        value: parseInt(e.impact_score) * 10
                     }
                 })
             let badTopics = data.filter(e => e.topic != '' && e.topic != null && e.sentiment_score != '' && e.sentiment_score != 'nan' && e.sentiment_score < 0)
@@ -223,7 +223,7 @@ const getTopics = (req, res) => {
                         text: e.review_text,
                         rating: e.stars,
                         name: e.topic,
-                        value: parseInt(e.impact_score) * 50
+                        value: parseInt(e.impact_score) * 10
                     }
                 })
             res.json([{

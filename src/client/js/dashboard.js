@@ -110,6 +110,7 @@ function calculateAverageSentiment(data, bID) {
 
   return averagedData;
 }
+
 function getAverageSentinmentForYear(data, bID, yr) {
   var i,
     avg = 0.0,
@@ -132,7 +133,12 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
   // set the dimensions and margins of the graph
   d3.selectAll(".rating").remove();
 
-  var margin = { top: 100, right: 100, bottom: 50, left: 60 },
+  var margin = {
+      top: 100,
+      right: 100,
+      bottom: 50,
+      left: 60
+    },
     width = 600 - margin.left - margin.right,
     height = 450 - margin.top - margin.bottom;
 
@@ -168,7 +174,7 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
     .style("font-size", "30px")
     .style("font-weight", "bold")
     .text("Weighted Ratings Across Years")
-    .style("fill", function(d) {
+    .style("fill", function (d) {
       return "#2874A6";
     });
 
@@ -183,7 +189,7 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
     .style("max-width", 400)
     .style("font-weight", "bold")
     .text("Comparing ratings with other businesses in the area")
-    .style("fill", function(d) {
+    .style("fill", function (d) {
       return "#2874A6";
     });
 
@@ -204,7 +210,7 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
         type: "GET",
         global: false,
         url: "http://localhost:4000/ratings/" + uniqueBizIds[d] + "/" + i,
-        success: function(e) {
+        success: function (e) {
           data2.push(e);
         }
       });
@@ -244,7 +250,7 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
 
   var bizKeys = d3
     .nest()
-    .key(function(d) {
+    .key(function (d) {
       return d.businessID;
     })
     .entries(formattedLineData);
@@ -268,7 +274,7 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
     .text("Year")
     .style("font-weight", "Bold")
     .style("font-size", "12px")
-    .style("fill", function(d) {
+    .style("fill", function (d) {
       return "#2874A6";
     });
 
@@ -289,7 +295,7 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
     .style("font-size", "12px")
     .style("font-weight", "Bold")
     .attr("text-anchor", "start")
-    .style("fill", function(d) {
+    .style("fill", function (d) {
       return "#2874A6";
     });
 
@@ -306,14 +312,14 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
     .attr("stroke-dasharray", "2,2")
     .call(
       make_y_gridlines()
-        .tickSize(-width * 1)
-        .tickFormat("")
+      .tickSize(-width * 1)
+      .tickFormat("")
     );
 
   var defaultBizColor = "#DF1010";
 
   // color palette
-  var res = bizKeys.map(function(d) {
+  var res = bizKeys.map(function (d) {
     return d.key;
   }); // list of group names
   var color = d3
@@ -332,30 +338,30 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
   business
     .append("path")
     .attr("fill", "none")
-    .attr("stroke", function(d) {
+    .attr("stroke", function (d) {
       if (!(d.key == myBizID)) return color(d.key);
       else return defaultBizColor;
     })
     .attr("stroke-width", 2.5)
-    .attr("d", function(d) {
+    .attr("d", function (d) {
       return d3
         .line()
-        .x(function(d) {
+        .x(function (d) {
           return x(d.year);
         })
-        .y(function(d) {
+        .y(function (d) {
           return y(d.wRating);
         })(d.values);
     })
-    .on("mouseover", function(d) {
+    .on("mouseover", function (d) {
       d3.select(this)
         .style("opacity", 0.1)
         .attr("stroke", "blue");
     })
-    .on("mouseleave", function(d) {
+    .on("mouseleave", function (d) {
       d3.select(this)
         .style("opacity", 1)
-        .attr("stroke", function(d) {
+        .attr("stroke", function (d) {
           if (!(d.key == myBizID)) return color(d.key);
           else return defaultBizColor;
         });
@@ -363,16 +369,19 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
 
   business
     .append("text")
-    .datum(function(d) {
-      return { key: d.businessID, values: d.values[d.values.length - 1] };
+    .datum(function (d) {
+      return {
+        key: d.businessID,
+        values: d.values[d.values.length - 1]
+      };
     })
-    .attr("transform", function(d) {
+    .attr("transform", function (d) {
       return "translate(" + x(d.values.year) + "," + y(d.values.wRating) + ")";
     })
     .attr("x", 7)
     .attr("dy", ".35em")
     .attr("font-size", "12px")
-    .text(function(d) {
+    .text(function (d) {
       return d.values.businessName;
     });
 
@@ -383,18 +392,18 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
     .data(formattedLineData)
     .enter()
     .append("circle")
-    .attr("cx", function(d) {
+    .attr("cx", function (d) {
       return x(d.year);
     })
-    .attr("cy", function(d) {
+    .attr("cy", function (d) {
       return y(d.wRating);
     })
     .attr("r", 5)
-    .attr("fill", function(d) {
+    .attr("fill", function (d) {
       if (!(d.businessID == myBizID)) return otherBizDot;
       else return myBizDot;
     })
-    .on("mouseover", function(d) {
+    .on("mouseover", function (d) {
       tooltip.style("opacity", 1);
       d3.select(this)
         .style("stroke", "black")
@@ -402,20 +411,20 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
         .duration(250)
         .attr("r", 8);
     })
-    .on("mousemove", function(d) {
+    .on("mousemove", function (d) {
       tooltip
         .html(
           "Weighted Rating: " +
-            d.wRating.toFixed(2) +
-            "<br> Year: " +
-            d.year +
-            "<br>Click for details:" +
-            d.businessName
+          d.wRating.toFixed(2) +
+          "<br> Year: " +
+          d.year +
+          "<br>Click for details:" +
+          d.businessName
         )
         .style("left", d3.event.pageX + 16 + "px")
         .style("top", d3.event.pageY + 16 + "px");
     })
-    .on("mouseleave", function(d) {
+    .on("mouseleave", function (d) {
       tooltip.style("opacity", 0);
       d3.select(this)
         .style("stroke", "none")
@@ -423,7 +432,7 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
         .duration(150)
         .attr("r", 5);
     })
-    .on("click", function(d, i) {
+    .on("click", function (d, i) {
       loadSentiment(d.businessID);
       bubble(d.businessID, d.year);
       positiveCloud(d.businessID);
@@ -451,7 +460,12 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
     //	finalists(yeardr);
     d3.selectAll(".sentiment").remove();
 
-    var margin = { top: 100, right: 100, bottom: 50, left: 70 },
+    var margin = {
+        top: 100,
+        right: 100,
+        bottom: 50,
+        left: 70
+      },
       width = 600 - margin.left - margin.right,
       height = 450 - margin.top - margin.bottom;
 
@@ -477,7 +491,7 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
         type: "GET",
         global: false,
         url: "http://localhost:4000/sentiment/" + gnvbizID + "/" + i,
-        success: function(e) {
+        success: function (e) {
           data.push(e);
         }
       });
@@ -500,7 +514,7 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
       .style("font-size", "30px")
       .style("font-weight", "bold")
       .text("Sentiment Across Years")
-      .style("fill", function(d) {
+      .style("fill", function (d) {
         return "#2874A6";
       });
 
@@ -515,7 +529,7 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
       .style("max-width", 400)
       .style("font-weight", "bold")
       .text("Change in User sentiment across the years")
-      .style("fill", function(d) {
+      .style("fill", function (d) {
         return "#2874A6";
       });
 
@@ -533,7 +547,7 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
     // Add X axis
 
     var averagedSentimentData = calculateAverageSentiment(data, gnvbizID);
-    var senti_domain = d3.extent(averagedSentimentData, function(d) {
+    var senti_domain = d3.extent(averagedSentimentData, function (d) {
       return d.value;
     });
     console.log(senti_domain);
@@ -555,7 +569,7 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
       .text("Year")
       .style("font-weight", "Bold")
       .style("font-size", "12px")
-      .style("fill", function(d) {
+      .style("fill", function (d) {
         return "#2874A6";
       });
 
@@ -576,7 +590,7 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
       .style("font-size", "12px")
       .style("font-weight", "Bold")
       .attr("text-anchor", "start")
-      .style("fill", function(d) {
+      .style("fill", function (d) {
         return "#2874A6";
       });
 
@@ -592,8 +606,8 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
       .attr("stroke-dasharray", "2,2")
       .call(
         make_y_gridlines()
-          .tickSize(-width * 1)
-          .tickFormat("")
+        .tickSize(-width * 1)
+        .tickFormat("")
       );
 
     // Add the line
@@ -611,13 +625,13 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
       .attr(
         "d",
         d3
-          .line()
-          .x(function(d) {
-            return x(d.year);
-          })
-          .y(function(d) {
-            return y(d.value);
-          })
+        .line()
+        .x(function (d) {
+          return x(d.year);
+        })
+        .y(function (d) {
+          return y(d.value);
+        })
       );
 
     svg
@@ -629,22 +643,22 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
       .attr(
         "d",
         d3
-          .area()
-          .x(function(d) {
-            return x(d.year);
-          })
-          .y0(height)
-          .y1(function(d) {
-            return y(d.value);
-          })
+        .area()
+        .x(function (d) {
+          return x(d.year);
+        })
+        .y0(height)
+        .y1(function (d) {
+          return y(d.value);
+        })
       );
 
     line
       .append("text")
-      .datum(function(d) {
+      .datum(function (d) {
         return d[d.length - 1];
       })
-      .attr("transform", function(d) {
+      .attr("transform", function (d) {
         return "translate(" + x(2014) + "," + y(0.8) + ")";
       })
       .attr("x", 10)
@@ -657,18 +671,18 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
       .data(averagedSentimentData)
       .enter()
       .append("circle")
-      .attr("cx", function(d) {
+      .attr("cx", function (d) {
         return x(d.year);
       })
-      .attr("cy", function(d) {
+      .attr("cy", function (d) {
         return y(d.value);
       })
       .attr("r", 5)
-      .attr("fill", function(d) {
+      .attr("fill", function (d) {
         if (d.value < 0) return "#ae0404";
         else return "#0000b3";
       })
-      .on("mouseover", function(d) {
+      .on("mouseover", function (d) {
         tooltip.style("opacity", 1);
         d3.select(this)
           .style("stroke", "black")
@@ -676,13 +690,13 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
           .duration(250)
           .attr("r", 8);
       })
-      .on("mousemove", function(d) {
+      .on("mousemove", function (d) {
         tooltip
           .html("Sentiment value: " + d.value.toFixed(2))
           .style("left", d3.event.pageX + 16 + "px")
           .style("top", d3.event.pageY + 16 + "px");
       })
-      .on("mouseleave", function(d) {
+      .on("mouseleave", function (d) {
         tooltip.style("opacity", 0);
         d3.select(this)
           .style("stroke", "none")
@@ -698,7 +712,7 @@ function bubble(myBizID, year) {
 }
 
 function negativeCloud(myBizID) {
-  generateWordCloudNegatives(myBizID);
+  setTimeout(() => generateWordCloudNegatives(myBizID), 600)
 }
 
 function positiveCloud(myBizID) {
