@@ -325,8 +325,8 @@ function plot_business(business) {
   infowindow = new google.maps.InfoWindow();
 
   var biz_info =
-    //business.name +
-    //", " +
+    business.name +
+    ", " +
     business.city +
     ", " +
     business.state +
