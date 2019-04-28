@@ -15,6 +15,3 @@
 * In first window - Type ```npm i``` and then after processing finishes again type ```npm run server```
 * In second window -  ```npm run client-w``` (for windows) or ```npm run client-l``` (for linux and macOS)
 * Ensure MondoDB is running (mongod)
-* Run server - ```npm run server```
-* Run client (On Linux) - ```npm run client-l```
-* Run client (On Windows) - ```npm run client-w```
