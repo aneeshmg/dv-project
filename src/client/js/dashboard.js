@@ -19,14 +19,12 @@ function dashboard_load(biz_id, biz_info, bounds) {
       "/" +
       new_biz_data[2],
     success: function (data) {
-      console.log(data)
       biz_id_list = data;
     }
   });
 
   biz_id = biz_id_list[0].business_id;
   var temp_biz_info;
-  console.log(biz_id)
   $.ajax({
     async: false,
     type: "GET",
@@ -86,6 +84,8 @@ function dashboard_load(biz_id, biz_info, bounds) {
   //document.getElementById("graph_title").innerHTML = "Graph";
   avg_rating_chart(biz_id, competitor_bizID);
   document.getElementById('dashboard').scrollIntoView()
+  $('#business-info-title').html('Selected business: ')
+  $('#biz_info').css('padding', '1%')
   $('#avg-rating-chart-title').html('Average weighted ragtings over the years')
   $('#sentiment-chart-title').html('Sentiment scores over the years')
 
@@ -208,9 +208,9 @@ function avg_rating_chart(myBizID, uniqueBizIds) {
 
   var margin = {
       top: 100,
-      right: 100,
+      right: 150,
       bottom: 50,
-      left: 60
+      left: 100
     },
     width = 1600 - margin.left - margin.right,
     height = 450 - margin.top - margin.bottom;
@@ -536,9 +536,9 @@ function loadSentiment(gnvbizID) {
 
   var margin = {
       top: 100,
-      right: 100,
+      right: 150,
       bottom: 50,
-      left: 70
+      left: 100
     },
     width = 1600 - margin.left - margin.right,
     height = 450 - margin.top - margin.bottom;
