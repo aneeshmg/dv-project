@@ -86,7 +86,7 @@ function dashboard_load(biz_id, biz_info, bounds) {
   document.getElementById('dashboard').scrollIntoView()
   $('#business-info-title').html('Selected business: ')
   $('#biz_info').css('padding', '1%')
-  $('#avg-rating-chart-title').html('Average weighted ragtings over the years')
+  $('#avg-rating-chart-title').html('Average weighted ratings over the years')
   $('#sentiment-chart-title').html('Sentiment scores over the years')
 
 }

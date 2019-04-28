@@ -208,7 +208,7 @@ const getTopics = (req, res) => {
         }
         if (data == null || data.length == 0) res.json({})
         else {
-            let goodTopics = data.filter(e => e.topic != '' && e.topic != null && e.sentiment_score != '' && e.sentiment_score != 'nan' && e.sentiment_score >= 0)
+            let goodTopics = data.filter(e => e.topic != '' && e.topic != null && e.sentiment_score != '' && e.sentiment_score != 'nan' && e.sentiment_score >= 0 && e.stars >= 3.5)
                 .map(e => {
                     return {
                         text: e.review_text,
@@ -217,7 +217,7 @@ const getTopics = (req, res) => {
                         value: (parseInt(e.impact_score) * 10) || 2
                     }
                 })
-            let badTopics = data.filter(e => e.topic != '' && e.topic != null && e.sentiment_score != '' && e.sentiment_score != 'nan' && e.sentiment_score < 0)
+            let badTopics = data.filter(e => e.topic != '' && e.topic != null && e.sentiment_score != '' && e.sentiment_score != 'nan' && e.sentiment_score < 0 && e.stars <= 3.5)
                 .map(e => {
                     return {
                         text: e.review_text,

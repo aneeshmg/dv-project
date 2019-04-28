@@ -47,12 +47,13 @@ function search(place) {
     var biz_name = biz_info[0].trim();
     var biz_city = biz_info[1].trim();
     var biz_state = biz_info[2].trim();
-    var biz_id = biz_info[3].split(": ")[1];
+    //var biz_id = biz_info[3].split(": ")[1];
 
     var location = document.getElementById("autocomplete").value;
     var loc_info = location.split(",");
     var loc_city = loc_info[0].trim();
     var loc_state = loc_info[1].trim();
+
 
     if (biz_city != loc_city) {
       document.getElementById("par").innerHTML =
