@@ -12,7 +12,7 @@ function dashboard_load(biz_id, biz_info, bounds) {
     async: false,
     type: "GET",
     global: false,
-    url: "http://localhost:4000/getbusinessesbynamecitystate/" +
+    url: "http://runge.la.asu.edu:4000/getbusinessesbynamecitystate/" +
       new_biz_data[0] +
       "/" +
       new_biz_data[1] +
@@ -29,7 +29,7 @@ function dashboard_load(biz_id, biz_info, bounds) {
     async: false,
     type: "GET",
     global: false,
-    url: "http://localhost:4000/getbusinessbyID/" + biz_id,
+    url: "http://runge.la.asu.edu:4000/getbusinessbyID/" + biz_id,
     success: function (data) {
       temp_biz_info = data;
     }
@@ -39,7 +39,7 @@ function dashboard_load(biz_id, biz_info, bounds) {
     async: false,
     type: "GET",
     global: false,
-    url: "http://localhost:4000/getBusinessesWithinLoc/" +
+    url: "http://runge.la.asu.edu:4000/getBusinessesWithinLoc/" +
       bounds[0] +
       "/" +
       bounds[1] +
