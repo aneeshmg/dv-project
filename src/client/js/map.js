@@ -325,8 +325,8 @@ function plot_business(business) {
   infowindow = new google.maps.InfoWindow();
 
   var biz_info =
-    business.name +
-    ", " +
+    //business.name +
+    //", " +
     business.city +
     ", " +
     business.state +
@@ -430,8 +430,8 @@ function plot_business_within_bound(mapa, business) {
 
 
     var competitor_info =
-      competitors[marker.index].business_id +
-      "<br />" +
+      //competitors[marker.index].business_id +
+      //"<br />" +
       competitors[marker.index].name +
       ", " +
       competitors[marker.index].city +

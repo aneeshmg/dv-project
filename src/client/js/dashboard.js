@@ -5,10 +5,9 @@ function euclidean_distance(lat1, lng1, lat2, lng2) {
 }
 
 function dashboard_load(biz_id, biz_info, bounds) {
-  var new_biz = biz_info.split("<br />")[1];
+  var new_biz = biz_info.split("<br />")[0];
   var new_biz_data = new_biz.split(", ");
   var myVariable;
-  
   $.ajax({
     async: false,
     type: "GET",
