@@ -1,21 +1,99 @@
 var business_id, business_info;
 
-function dashboard_load(biz_id, biz_info, competitor_array) {
-  var competitor_bizID = competitor_array.slice(1, 5);
-  for (var i = 1; i < 5; i++) {
-    competitor_bizID.push(
-      competitor_array[i].split("<br />")[0].split(": ")[1]
-    );
+function euclidean_distance(lat1, lng1, lat2, lng2) {
+  return Math.sqrt(Math.pow(lat2 - lat1, 2) + Math.pow(lng2 - lng1, 2));
+}
+
+function euclidean_distance(lat1, lng1, lat2, lng2) {
+  return Math.sqrt(Math.pow(lat2 - lat1, 2) + Math.pow(lng2 - lng1, 2));
+}
+
+function dashboard_load(biz_id, biz_info, bounds) {
+var new_biz = biz_info.split("<br />")[0];
+var new_biz_data = new_biz.split(", ");
+var myVariable;
+$.ajax({
+  async: false,
+  type: "GET",
+  global: false,
+  url:
+    "http://localhost:4000/getbusinessesbynamecitystate/" +
+    new_biz_data[0] +
+    "/" +
+    new_biz_data[1] +
+    "/" +
+    new_biz_data[2],
+  success: function(data) {
+    biz_id_list = data;
   }
-  business_id = biz_id;
-  business_info = biz_info;
-  document.getElementById("biz_info").innerHTML = business_info;
-  avg_rating_chart(biz_id, competitor_bizID);
-  document.getElementById('dashboard').scrollIntoView()
-  $('#avg-rating-chart-title').html('Average weighted ragtings over the years')
-  $('#sentiment-chart-title').html('Sentiment scores over the years')
-  //bubble(biz_id);
-  //frequent_cloud(biz_id);
+});
+
+biz_id = biz_id_list[0].business_id;
+var temp_biz_info;
+console.log( biz_id )
+$.ajax({
+  async: false,
+  type: "GET",
+  global: false,
+  url: "http://localhost:4000/getbusinessbyID/" + biz_id,
+  success: function(data) {
+    temp_biz_info = data;
+  }
+});
+
+$.ajax({
+  async: false,
+  type: "GET",
+  global: false,
+  url:
+    "http://localhost:4000/getBusinessesWithinLoc/" +
+    bounds[0] +
+    "/" +
+    bounds[1] +
+    "/" +
+    bounds[2] +
+    "/" +
+    bounds[3],
+  success: function(data) {
+    competitors = data;
+  }
+});
+
+
+
+// console.log(competitors);
+competitors=competitors.slice(0,100);
+var competitor_bizID = [];
+var temp = {};
+
+for (var i in competitors) {
+  temp[
+    euclidean_distance(
+      temp_biz_info.latitude,
+      temp_biz_info.longitude,
+      competitors[i].latitude,
+      competitors[i].longitude
+    )
+  ] = competitors[i].business_id;
+}
+temp = Object.entries(temp).sort();
+
+for (var i in temp) {
+  competitor_bizID.push(temp[i][1]);
+  if (competitor_bizID.length == 5) break;
+}
+competitor_bizID = competitor_bizID.slice(1,4)
+
+//document.getElementById("dash_title").innerHTML = "Dashboard";
+business_id = biz_id;
+business_info = biz_info;
+document.getElementById("biz_info").innerHTML = business_info;
+//document.getElementById("graph_title").innerHTML = "Graph";
+avg_rating_chart(biz_id, competitor_bizID);
+document.getElementById('dashboard').scrollIntoView()
+$('#avg-rating-chart-title').html('Average weighted ragtings over the years')
+$('#sentiment-chart-title').html('Sentiment scores over the years')
+
 }
 
 function getBusinessName(data, bID) {
